@@ -154,7 +154,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives">
-          <span class="site-state-item-count">3</span>
+          <span class="site-state-item-count">4</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -199,6 +199,95 @@
 
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/12/04/Encoder-Decoder%E8%AF%A6%E8%A7%A3%E5%8F%8A%E5%85%B6%E6%95%B0%E5%AD%A6%E6%9C%AC%E8%B4%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar2.png">
+      <meta itemprop="name" content="Ruoxuan">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="认真思考">
+      <meta itemprop="description" content="愿历经千帆，归来仍是少年。">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 认真思考">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/12/04/Encoder-Decoder%E8%AF%A6%E8%A7%A3%E5%8F%8A%E5%85%B6%E6%95%B0%E5%AD%A6%E6%9C%AC%E8%B4%A8/" class="post-title-link" itemprop="url">Encoder-Decoder详解及其数学本质</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-12-04 16:53:31" itemprop="dateCreated datePublished" datetime="2022-12-04T16:53:31+08:00">2022-12-04</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-12-05 14:26:14" itemprop="dateModified" datetime="2022-12-05T14:26:14+08:00">2022-12-05</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h5 id="前言：encoder-decoder-也即-编码器-解码器-结构，它属于一种抽象性的结构，并不表示某一具体结构，在下文可以看到有许多机器学习算法都服从这一结构。"><a href="#前言：encoder-decoder-也即-编码器-解码器-结构，它属于一种抽象性的结构，并不表示某一具体结构，在下文可以看到有许多机器学习算法都服从这一结构。" class="headerlink" title="前言：encoder-decoder 也即 编码器-解码器 结构，它属于一种抽象性的结构，并不表示某一具体结构，在下文可以看到有许多机器学习算法都服从这一结构。"></a>前言：encoder-decoder 也即 编码器-解码器 结构，它属于一种抽象性的结构，并不表示某一具体结构，在下文可以看到有许多机器学习算法都服从这一结构。</h5><h5 id="引入："><a href="#引入：" class="headerlink" title="引入："></a>引入：</h5><p>在机器学习中，很多问题可以抽象出类似的模型：</p>
+<ul>
+<li>机器翻译。将一种语言的句子转化成另外一种语言的句子。</li>
+<li>自动摘要。为一段文字提取出摘要。</li>
+<li>为图像生成文字解说。将图像数据转化成文字数据。</li>
+<li>根据一段文字描述生成图像。这是上面问题的反过程，将文字转化成图像。</li>
+</ul>
+<p>其它的例子我们就不一一列举。在这些问题中，我们需要将输入数据转化成另外一种输出数据，<font color=blue><strong>二者之间有概率关系</strong></font>。例如，对于机器翻译来说，二者有相同的语义。</p>
+<p>但是，这些情况下直接用一个函数完成这个转化 y&#x3D;f(x)可能会存在困难。例如对机器翻译来说<font color=blue>输入和输出的长度是不固定的</font>，二者还可能不相等。因此我们需要先将输入数据x转化成一种中间数据z，再从z映射出y。这就是编码器-解码器结构。（不固定x——固定z——不固定y）</p>
+<h3 id="从PCA说起"><a href="#从PCA说起" class="headerlink" title="从PCA说起"></a>从PCA说起</h3><p>主成分分析是一种经典的无监督数据降维算法。它将一个高维的向量x映射成一个低维的向量y，前提条件是y很好的保留了x的主要信息。在做数据降维时，我们执行如下变换：$$y&#x3D;W(x-m)$$。计算过程很简单，先减掉均值向量，然后左乘投影矩阵即可。其中m是样本集的均值向量，W是投影矩阵，通过样本集计算得到，具体的原理可以参考$$PCA$$的教程。这一投影过程的作用类似于编码器，将高维向量x编码成低维向量y。</p>
+<p>有些时候，我们需要从降维后的向量y重构出原始的向量x，这可以通过数据重构算法实现，重构变换方法即$$W^Ty+m$$，这刚好和投影算法相反，是先左乘投影矩阵W的转置， 然后加上均值向量。在这里，重构算法可以看作是解码器，从降维后的向量解码出原始的信号。</p>
+<h3 id="自动编码器-Auto-Encoder"><a href="#自动编码器-Auto-Encoder" class="headerlink" title="自动编码器 Auto Encoder"></a>自动编码器 Auto Encoder</h3><p>自动编码器（Auto-Encoder，简称AE）是一种特殊的神经网络，用于特征提取和数据降维。最简单的自动编码器由一个输入层，一个隐含层，一个输出层组成。隐含层的映射充当编码器，输出层的映射充当解码器。</p>
+<p>训练时编码器对输入向量进行映射，得到编码后的向量；解码器对编码向量进行映射，得到重构后的向量，它是对输入向量的近似。编码器和解码器同时训练，训练的目标是最小化重构误差，即让重构向量与原始输入向量之间的误差最小化，这与PCA非常类似。因此样本x的标签值就是样本自身。</p>
+<p>训练完成之后，在预测时只使用编码器而不再需要解码器，编码器的输出结果被进一步使用，用于分类，回个等任务。</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
