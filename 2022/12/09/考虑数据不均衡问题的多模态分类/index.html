@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.loli.net/css?family=Noto+Serif+SC:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"yoursite.com","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.12.2","exturl":false,"sidebar":{"position":"left","display":"always","padding":15,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="这篇报告是关于考虑数据不均衡问题的多模态分类系统框架介绍。 1. 背景在大数据时代，伴随着多媒体技术的广泛应用和数据描述手段的日渐丰富，多模态数据广泛存在。多模态数据是指对于同一个描述对象，通过不同领域获取到的数据，并且把描述这些数据的每一个领域叫做一个模态。在多模态数据中，每个模态能够为其余模态提供一定的信息，即模态之间存在一定的关联性。所以，在对多模态数据进行数据挖掘与分析时，一个关键的课题是">
+<meta property="og:type" content="article">
+<meta property="og:title" content="考虑数据不均衡问题的多模态分类">
+<meta property="og:url" content="http://yoursite.com/2022/12/09/%E8%80%83%E8%99%91%E6%95%B0%E6%8D%AE%E4%B8%8D%E5%9D%87%E8%A1%A1%E9%97%AE%E9%A2%98%E7%9A%84%E5%A4%9A%E6%A8%A1%E6%80%81%E5%88%86%E7%B1%BB/index.html">
+<meta property="og:site_name" content="认真思考">
+<meta property="og:description" content="这篇报告是关于考虑数据不均衡问题的多模态分类系统框架介绍。 1. 背景在大数据时代，伴随着多媒体技术的广泛应用和数据描述手段的日渐丰富，多模态数据广泛存在。多模态数据是指对于同一个描述对象，通过不同领域获取到的数据，并且把描述这些数据的每一个领域叫做一个模态。在多模态数据中，每个模态能够为其余模态提供一定的信息，即模态之间存在一定的关联性。所以，在对多模态数据进行数据挖掘与分析时，一个关键的课题是">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-12-09T05:32:10.000Z">
+<meta property="article:modified_time" content="2022-12-09T05:34:32.632Z">
+<meta property="article:author" content="Ruoxuan">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://yoursite.com/2022/12/09/%E8%80%83%E8%99%91%E6%95%B0%E6%8D%AE%E4%B8%8D%E5%9D%87%E8%A1%A1%E9%97%AE%E9%A2%98%E7%9A%84%E5%A4%9A%E6%A8%A1%E6%80%81%E5%88%86%E7%B1%BB/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://yoursite.com/2022/12/09/%E8%80%83%E8%99%91%E6%95%B0%E6%8D%AE%E4%B8%8D%E5%9D%87%E8%A1%A1%E9%97%AE%E9%A2%98%E7%9A%84%E5%A4%9A%E6%A8%A1%E6%80%81%E5%88%86%E7%B1%BB/","path":"2022/12/09/考虑数据不均衡问题的多模态分类/","title":"考虑数据不均衡问题的多模态分类"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>考虑数据不均衡问题的多模态分类 | 认真思考</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">认真思考</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section">首页</a></li><li class="menu-item menu-item-about"><a href="/about" rel="section">关于</a></li><li class="menu-item menu-item-tags"><a href="/tags" rel="section">标签</a></li><li class="menu-item menu-item-categories"><a href="/categories" rel="section">分类</a></li><li class="menu-item menu-item-archives"><a href="/archives" rel="section">归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E8%83%8C%E6%99%AF"><span class="nav-number">1.</span> <span class="nav-text">1. 背景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E6%96%B9%E6%A1%88%E8%AE%BE%E8%AE%A1"><span class="nav-number">2.</span> <span class="nav-text">2. 方案设计</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-%E6%A8%A1%E5%9D%97%E4%B8%80"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 模块一</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-%E6%A8%A1%E5%9D%97%E4%BA%8C"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 模块二</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0"><span class="nav-number">2.3.</span> <span class="nav-text">2.3 损失函数</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E6%95%B0%E6%8D%AE%E9%9B%86%E4%BB%8B%E7%BB%8D"><span class="nav-number">3.</span> <span class="nav-text">3.  数据集介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1-xxx%E6%95%B0%E6%8D%AE%E9%9B%86"><span class="nav-number">3.1.</span> <span class="nav-text">3.1 xxx数据集</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-%E6%95%B0%E6%8D%AE%E7%BB%9F%E8%AE%A1%E5%92%8C%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2"><span class="nav-number">3.2.</span> <span class="nav-text">3.2 数据统计和数据探索</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-3-%E6%95%B0%E6%8D%AE%E5%88%92%E5%88%86"><span class="nav-number">3.3.</span> <span class="nav-text">3.3 数据划分</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E8%AF%84%E4%BB%B7%E6%8C%87%E6%A0%87%E5%92%8C%E5%AF%B9%E6%AF%94%E6%96%B9%E6%B3%95"><span class="nav-number">4.</span> <span class="nav-text">4. 评价指标和对比方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#4-1-%E8%AF%84%E4%BB%B7%E6%8C%87%E6%A0%87"><span class="nav-number">4.1.</span> <span class="nav-text">4.1 评价指标</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-2-%E5%AF%B9%E6%AF%94%E6%96%B9%E6%B3%95"><span class="nav-number">4.2.</span> <span class="nav-text">4.2 对比方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-3-%E6%B6%88%E8%9E%8D%E5%AE%9E%E9%AA%8C"><span class="nav-number">4.3.</span> <span class="nav-text">4.3 消融实验</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Ruoxuan"
+      src="/images/avatar2.png">
+  <p class="site-author-name" itemprop="name">Ruoxuan</p>
+  <div class="site-description" itemprop="description">愿历经千帆，归来仍是少年。</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives">
+          <span class="site-state-item-count">5</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories">
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags">
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Ruoxuan-Li" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Ruoxuan-Li" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/12/09/%E8%80%83%E8%99%91%E6%95%B0%E6%8D%AE%E4%B8%8D%E5%9D%87%E8%A1%A1%E9%97%AE%E9%A2%98%E7%9A%84%E5%A4%9A%E6%A8%A1%E6%80%81%E5%88%86%E7%B1%BB/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar2.png">
+      <meta itemprop="name" content="Ruoxuan">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="认真思考">
+      <meta itemprop="description" content="愿历经千帆，归来仍是少年。">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="考虑数据不均衡问题的多模态分类 | 认真思考">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          考虑数据不均衡问题的多模态分类
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2022-12-09 13:32:10 / 修改时间：13:34:32" itemprop="dateCreated datePublished" datetime="2022-12-09T13:32:10+08:00">2022-12-09</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E5%A4%9A%E6%A8%A1%E6%80%81%E8%9E%8D%E5%90%88/" itemprop="url" rel="index"><span itemprop="name">多模态融合</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>这篇报告是关于考虑数据不均衡问题的多模态分类系统框架介绍。</p>
+<h3 id="1-背景"><a href="#1-背景" class="headerlink" title="1. 背景"></a>1. 背景</h3><p>在大数据时代，伴随着多媒体技术的广泛应用和数据描述手段的日渐丰富，多模态数据广泛存在。多模态数据是指对于同一个描述对象，通过不同领域获取到的数据，并且把描述这些数据的每一个领域叫做一个模态。在多模态数据中，每个模态能够为其余模态提供一定的信息，即模态之间存在一定的关联性。所以，在对多模态数据进行数据挖掘与分析时，一个关键的课题是研究多模态数据的融合分析方法。</p>
+<p>在实际生活中，存在的一个现象是多模态数据的不均衡问题，一方面是由于数据的<strong>缺失</strong>，另一方面，多模态之间存在主导和次要关系，即<strong>强弱模态问题</strong>。而数据的不均衡可能会导致多模态模型的整体性能劣于单模态，或者在单个模态上的性能劣于单模态。对此，本课题尝试分析由于数据不均衡导致模态性能下降的原因，并提出若干方法来解决问题，从而提升多模态模型的分类等性能。</p>
+<ul>
+<li><font color=blue>数据不均衡问题：三方面的性质（三类型）</font></li>
+</ul>
+<p>①类不平衡：比如一个数据集中A类样本量多，B类样本量少  </p>
+<p>②模态不平衡：强弱模态（？是否真存在，内在机理是什么）✔</p>
+<p>③数据不完整：存在模态缺失的现象  （不研究）</p>
+<ul>
+<li><font color=blue>多模态融合：显性融合  &amp;  隐性融合</font></li>
+</ul>
+<p>（1）一些较为朴素的方法如串联融合等</p>
+<p>（2）为了有效的跨模态相互作用，Zadeh等人提出了一种<strong>张量融合机制</strong>。在此基础上，又提出了有效的<strong>低秩融合</strong>来解决张量融合的指数维爆炸问题。</p>
+<p>上述融合机制在很大程度上依赖于模态的完整性，使得不完全模态数据不可能实现多模态融合。因此，多模态学习的另一个重要方向是建立对模态不完全数据具有鲁棒性的模型。</p>
+<p>显式融合需要所有形态的存在。缺失任何一种形式都会破坏训练管道。相比之下，多模态Transformer使用自注意机制来生成所有模态的整体表示，允许缺失某一模态。</p>
+<p>（3）Transformer应用于多模态融合</p>
+<h3 id="2-方案设计"><a href="#2-方案设计" class="headerlink" title="2. 方案设计"></a>2. 方案设计</h3><p>（1）模态数据的不完整</p>
+<p>使用transformer。多模态transformer使用自注意机制生成所有模态的整体表示，因此它允许有模态的缺失。</p>
+<p>transformer对缺失模态是如何处理的。（？）</p>
+<p>（2）模态存在强弱。主导模态 &amp; 较弱模态</p>
+<p>（为什么会存在强弱模态，它的数学机理是什么？）模态的强弱是由于数据特点而决定的，比如语音-视觉模态中，语音模态比视觉模态更能反映该目标本身的特征，在训练时其优化器的优化速度（在显式融合方法中）更快，从而导致另一模态优化器的欠优化。Transformer方法则是一种隐式融合方法（？），</p>
+<p>xxxxxxxx整体的方案设计。</p>
+<h4 id="2-1-模块一"><a href="#2-1-模块一" class="headerlink" title="2.1 模块一"></a>2.1 模块一</h4><p>动态梯度调制方法OGM-GE；面对模态存在强弱，而导致的单模态优化器训练不够完全的情况，可以用OGM-GE方法改善。</p>
+<p>xxxxx</p>
+<h4 id="2-2-模块二"><a href="#2-2-模块二" class="headerlink" title="2.2 模块二"></a>2.2 模块二</h4><p>xxxxxx</p>
+<h4 id="2-3-损失函数"><a href="#2-3-损失函数" class="headerlink" title="2.3 损失函数"></a>2.3 损失函数</h4><p>xxxxxx</p>
+<h3 id="3-数据集介绍"><a href="#3-数据集介绍" class="headerlink" title="3.  数据集介绍"></a>3.  数据集介绍</h3><h4 id="3-1-xxx数据集"><a href="#3-1-xxx数据集" class="headerlink" title="3.1 xxx数据集"></a>3.1 xxx数据集</h4><h4 id="3-2-数据统计和数据探索"><a href="#3-2-数据统计和数据探索" class="headerlink" title="3.2 数据统计和数据探索"></a>3.2 数据统计和数据探索</h4><h4 id="3-3-数据划分"><a href="#3-3-数据划分" class="headerlink" title="3.3 数据划分"></a>3.3 数据划分</h4><p>xxxxx</p>
+<h3 id="4-评价指标和对比方法"><a href="#4-评价指标和对比方法" class="headerlink" title="4. 评价指标和对比方法"></a>4. 评价指标和对比方法</h3><h4 id="4-1-评价指标"><a href="#4-1-评价指标" class="headerlink" title="4.1 评价指标"></a>4.1 评价指标</h4><p>xxxx</p>
+<h4 id="4-2-对比方法"><a href="#4-2-对比方法" class="headerlink" title="4.2 对比方法"></a>4.2 对比方法</h4><p> xxxx</p>
+<h4 id="4-3-消融实验"><a href="#4-3-消融实验" class="headerlink" title="4.3 消融实验"></a>4.3 消融实验</h4><p>xxxxx</p>
+<p>参考文献：</p>
+<p>[1] Balanced Multimodal Learning via On-the-fly Gradient Modulation. 2022</p>
+<p>[2] [2]Low Rank Fusion based Transformers for Multimodal Sequences ( LMF-MulT ) 低秩矩阵融合</p>
+<p>[3] Multimodal transformer for unaligned multimodal language sequences ( MulT ) 多模态transformer</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/12/04/Encoder-Decoder%E8%AF%A6%E8%A7%A3%E5%8F%8A%E5%85%B6%E6%95%B0%E5%AD%A6%E6%9C%AC%E8%B4%A8/" rel="prev" title="Encoder-Decoder详解及其数学本质">
+                  <i class="fa fa-chevron-left"></i> Encoder-Decoder详解及其数学本质
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Ruoxuan</span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="eye"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+<!--
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/mist/" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+-->
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.0/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+</body>
+</html>
