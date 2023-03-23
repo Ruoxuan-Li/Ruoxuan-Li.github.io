@@ -155,7 +155,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-categories">
           <a href="/categories">
-        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-count">3</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
@@ -197,6 +197,120 @@
 
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2023/03/23/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-OGR-GB/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar2.png">
+      <meta itemprop="name" content="Li Ruoxuan">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="三月份的约定">
+      <meta itemprop="description" content="忘掉天地，仿佛也想不起自己。">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 三月份的约定">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2023/03/23/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-OGR-GB/" class="post-title-link" itemprop="url">论文阅读《What Makes Training Multi-modal Classification Networks Hard?》</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2023-03-23 18:11:32 / 修改时间：19:06:32" itemprop="dateCreated datePublished" datetime="2023-03-23T18:11:32+08:00">2023-03-23</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/" itemprop="url" rel="index"><span itemprop="name">论文阅读</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h5 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h5><p>考虑在具有多个输入模态的任务上对多模态网络与单模态网络进行端到端训练：多模态网络接收到更多信息，因此它应该匹配或优于其相应的单模态网络。<font color='pink'>然而，在我们的实验中观察到相反的现象：最好的单模态网络通常优于多模态网络。这一观察结果在模态的不同组合以及视频分类的不同任务和基准之间是一致的。</font>本文认为导致这种结果的原因有两点：①多模态网络的参数量增大，导致模型容易过拟合。②不同模态以不同的速率过拟合和泛化，因此以单一的联合训练策略来训练网络是次优的方案。进而本文针对这两个原因提出了解决方案：Gradient Blending梯度混合。<br>【批注】标红的部分是本文的motivation，即问题的出发点。这里有些瑕疵，是因为这里的融合机制设定<strong>都是后融合，并且是比较简单的后融合方法。</strong>这些融合方法本身可能存在比较大的缺陷。所以这个问题是否成立 还可以在其他融合方法（如前融合、混合融合以及基于模型的融合方法）进行验证。</p>
+<h5 id="引入"><a href="#引入" class="headerlink" title="引入"></a>引入</h5><img src="C:\Users\xuan\AppData\Roaming\Typora\typora-user-images\image-20230323182214807.png" alt="image-20230323182214807" style="zoom: 50%;" />
+图1：不同防止过拟合的方法&不同融合方法
+
+<p>上图：RGB是最佳的单模态网络<br>late-concat是Audio+RGB双模态基于(后)串联融合的方法（即多模态网络使用与单模态相同的架构，在预测之前的最后一层连接后期融合）<br>这种下降的现象在不同的模态组合和不同的betchmark数据集上都存在，如下图（这里只展示了一个数据集Kinetics上的结果）：<br>                                      <img src="C:\Users\xuan\AppData\Roaming\Typora\typora-user-images\image-20230323182820165.png" alt="image-20230323182820165" style="zoom:50%;" /><br>而针对这种现象，容易想到的原因有两个：①是由于后融合操作使得模型容量增大，从而导致过拟合造成的；②是由于late-concat这种融合方法欠佳导致的。针对这两个原因，作者先进行了实验，结果如图1所示。只有dropout和mid-concat相比于单模态RGB有一点提升。</p>
+<h6 id="不同的融合机制"><a href="#不同的融合机制" class="headerlink" title="不同的融合机制"></a>不同的融合机制</h6><p>这里作者希望说明，出现模型性能下降的原因不是由于late-concat导致的，或者说模型性能下降的现象在多种融合方法上都存在。文中在4种融合机制上进行了实验。</p>
+<table>
+<thead>
+<tr>
+<th>融合方法</th>
+<th>模型机制</th>
+<th>实验准确度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>late-concat</td>
+<td><img src="C:\Users\xuan\AppData\Roaming\Typora\typora-user-images\image-20230323185223847.png" alt="image-20230323185223847" style="zoom: 33%;" />特征直接串联，经过一个全连接层映射到同一空间，得到融合特征。</td>
+<td></td>
+</tr>
+<tr>
+<td>mid-concat</td>
+<td><img src="C:\Users\xuan\AppData\Roaming\Typora\typora-user-images\image-20230323190149854.png" alt="image-20230323190149854" style="zoom:33%;" /></td>
+<td></td>
+</tr>
+<tr>
+<td>SE-gate</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>NL-gate</td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<h6 id="dropout"><a href="#dropout" class="headerlink" title="dropout"></a>dropout</h6><p>一个感受：比如为什么在2022年阅读一篇2020年的文章时，会被其中引用的2018年的文章所吸引，2018年的那篇被引用的文章大概率质量比较高。这是因为经过了时间的烤盐啊……</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -956,139 +1070,9 @@
 
 
 
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/08/16/%E9%A2%84%E6%8E%A8%E5%85%8D%E9%9D%A2%E8%AF%95%E5%87%86%E5%A4%87/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar2.png">
-      <meta itemprop="name" content="Li Ruoxuan">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="三月份的约定">
-      <meta itemprop="description" content="忘掉天地，仿佛也想不起自己。">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | 三月份的约定">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/08/16/%E9%A2%84%E6%8E%A8%E5%85%8D%E9%9D%A2%E8%AF%95%E5%87%86%E5%A4%87/" class="post-title-link" itemprop="url">预推免面试准备</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-08-16 15:48:15" itemprop="dateCreated datePublished" datetime="2022-08-16T15:48:15+08:00">2022-08-16</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2023-03-21 01:12:45" itemprop="dateModified" datetime="2023-03-21T01:12:45+08:00">2023-03-21</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E4%B8%8A%E5%B2%B8%E4%B9%8B%E6%97%85/" itemprop="url" rel="index"><span itemprop="name">上岸之旅</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h2 id="0-写在前面"><a href="#0-写在前面" class="headerlink" title="0. 写在前面"></a>0. 写在前面</h2><p>准备思路：</p>
-<ol>
-<li>从自我介绍、科研经历、竞赛项目经历和未来研究兴趣几个方面进行思考和梳理。前后具有逻辑性：基本情况–&gt;本科基础、经历–&gt;兴趣、优势–&gt;读研规划。</li>
-<li>对应准备一下英文版。</li>
-<li>突出自己的重点、亮点。</li>
-</ol>
-<h2 id="1-自我介绍"><a href="#1-自我介绍" class="headerlink" title="1. 自我介绍"></a>1. 自我介绍</h2><p>​		中文版3分钟<br>​		英文版3分钟<br>​		中文版1分钟<br>​		英文版1分钟</p>
-<p>​		Good morning, dear professor. It’s great honor to be here for the interview. My name is LiRuoxuan. Born in Hubei province, I feel lucky that I can finish my undergraduate education in Nanjing University of Science and Technology, from where I learned a lot. </p>
-<p>​		Over the last three years, I was mainly concentrating on obtaining knowledge. Not only from books, but also from discipline competitions, community activities and countless others. learn to be with others and learn to how to learn. I try to improve myself under the direction of UNESCO. From my perspective, integrated development is crucial. I learned to build a sense of responsibility and I furthered my organizing capacity. Moreover, I devoted some time doing research in a group. Though we didn’t get significant achievement, the process led a way for me to pause, to look, to examine, to consider different aspects of a problem, and finally to figure out a solution without pursuing quick success and instant benefits. Further more, I did some part-time jobs which make me feel more confident and cheerful. </p>
-<p>By doing all these above, I learned how to manage time. Although I have grasped the basic knowledge of my major, I admit that there is still a long way to go before I can undertake more demanding tasks or researching works, for my knowledge and ability is somewhat limited. So I believe further study is urgent for me .The major that I wish to pursue for my further education is intelligent perception and intelligent computing（智能感知与智能计算）. I plan to concentrate on study and research in this field in my graduate time. And I convince that I can form a systematic view of intelligent perception and intelligent computing, and make a solid foundation for future profession after three years study here! Thank you very much for your time!</p>
-<h2 id="2-科研经历"><a href="#2-科研经历" class="headerlink" title="2. 科研经历"></a>2. 科研经历</h2><h2 id="3-项目问答"><a href="#3-项目问答" class="headerlink" title="3. 项目问答"></a>3. 项目问答</h2><h2 id="4-研究兴趣-amp-未来计划"><a href="#4-研究兴趣-amp-未来计划" class="headerlink" title="4. 研究兴趣 &amp; 未来计划"></a>4. 研究兴趣 &amp; 未来计划</h2><h2 id="5-常见提问（中英文版）"><a href="#5-常见提问（中英文版）" class="headerlink" title="5. 常见提问（中英文版）"></a>5. 常见提问（中英文版）</h2><h5 id="1-Introduce-yourself（1min-x2F-3min）"><a href="#1-Introduce-yourself（1min-x2F-3min）" class="headerlink" title="1. Introduce yourself（1min&#x2F;3min）"></a>1. Introduce yourself（1min&#x2F;3min）</h5><p>内容上，包括姓名、年龄、本科院校、专业，想去该校读研的原因，喜欢的研究方向以及自己学习这个方向的基础和优势，结束语句表达憧憬及感谢老师。</p>
-<h5 id="2-Why-do-you-choose-A-University？（想来我校读研的原因）"><a href="#2-Why-do-you-choose-A-University？（想来我校读研的原因）" class="headerlink" title="2. Why do you choose A University？（想来我校读研的原因）"></a>2. Why do you choose A University？（想来我校读研的原因）</h5><p>Southeast University（东南大学）</p>
-<h5 id="3-What’s-your-major-why-do-you-choose-it-and-what-do-you-think-of-it-（你所学专业，以及为何选择申请这个专业）"><a href="#3-What’s-your-major-why-do-you-choose-it-and-what-do-you-think-of-it-（你所学专业，以及为何选择申请这个专业）" class="headerlink" title="3. What’s your major,why do you choose it and what do you think of it?（你所学专业，以及为何选择申请这个专业）"></a>3. What’s your major,why do you choose it and what do you think of it?（你所学专业，以及为何选择申请这个专业）</h5><p>说一下自己学习这个专业方向的基础和优势，包括为此所作的准备等。</p>
-<h5 id="4-What’s-your-plan-for-the-after-3-x2F-5-years-（未来计划）"><a href="#4-What’s-your-plan-for-the-after-3-x2F-5-years-（未来计划）" class="headerlink" title="4. What’s your plan for the after 3&#x2F;5 years?（未来计划）"></a>4. What’s your plan for the after 3&#x2F;5 years?（未来计划）</h5><p>未来研究方向包括大数据分析、强化学习、无人系统、物联网智能感知、多智能体系统、博弈理论等，培养学生用算法与优化方法解决应用问题的能力。</p>
-<h5 id="5-Briefly-describe-your-scientific-research-experience-in-English（用英文简述科研经历）"><a href="#5-Briefly-describe-your-scientific-research-experience-in-English（用英文简述科研经历）" class="headerlink" title="5. Briefly describe your scientific research experience in English（用英文简述科研经历）"></a>5. Briefly describe your scientific research experience in English（用英文简述科研经历）</h5><h5 id="6-科研训练读过哪些期刊的相关论文？"><a href="#6-科研训练读过哪些期刊的相关论文？" class="headerlink" title="6. 科研训练读过哪些期刊的相关论文？"></a>6. 科研训练读过哪些期刊的相关论文？</h5><h5 id="7-读过什么专业类书"><a href="#7-读过什么专业类书" class="headerlink" title="7. 读过什么专业类书"></a>7. 读过什么专业类书</h5><h5 id="8-Tell-me-about-your-university（本科学校）"><a href="#8-Tell-me-about-your-university（本科学校）" class="headerlink" title="8. Tell me about your university（本科学校）"></a>8. Tell me about your university（本科学校）</h5><h5 id="9-Tell-me-about-your-hometown（家乡）"><a href="#9-Tell-me-about-your-hometown（家乡）" class="headerlink" title="9. Tell me about your hometown（家乡）"></a>9. Tell me about your hometown（家乡）</h5><h5 id="10-Tell-me-about-your-family（家庭）"><a href="#10-Tell-me-about-your-family（家庭）" class="headerlink" title="10. Tell me about your family（家庭）"></a>10. Tell me about your family（家庭）</h5><h5 id="11-优缺点"><a href="#11-优缺点" class="headerlink" title="11. 优缺点"></a>11. 优缺点</h5><h5 id="12-最喜欢的课程是哪门，简要介绍一下"><a href="#12-最喜欢的课程是哪门，简要介绍一下" class="headerlink" title="12. 最喜欢的课程是哪门，简要介绍一下"></a>12. 最喜欢的课程是哪门，简要介绍一下</h5><h5 id="13-本科有没有担任什么职务"><a href="#13-本科有没有担任什么职务" class="headerlink" title="13. 本科有没有担任什么职务"></a>13. 本科有没有担任什么职务</h5><h5 id="问题没听清-amp-听不懂时"><a href="#问题没听清-amp-听不懂时" class="headerlink" title="问题没听清&amp;听不懂时"></a>问题没听清&amp;听不懂时</h5><p>Sorry, I can’t follow you.<br>Sorry, I lost you. Can you repeat that question again?</p>
-<p>Could you please make the question simpler?<br>Could you please express in a different way?</p>
-<h2 id="6-专业基础知识"><a href="#6-专业基础知识" class="headerlink" title="6. 专业基础知识"></a>6. 专业基础知识</h2><p>英文描述快速排序过程以及最好最坏复杂度</p>
-<p>数据库bc范式和第三范式区别</p>
-<p>特征值和特征向量的意义以及之间的关系</p>
-<p>TCP-IP的工作过程描述</p>
-<p>在局域网中TCP-IP协议栈是否冗余</p>
-<p>列举各种排序算法以及复杂度</p>
-<p>数据结构快排的优缺点，怎样改进缺点</p>
-<p>栈和队列的区别</p>
-<p>如何用两个栈实现队列</p>
-<p>很简单的双指针，把负数移到正数前。控制到On复杂度</p>
-<p>Floyd(菜鸡用了复杂度比较高的方法)</p>
-<p>很简单的动态规划</p>
-<p>询问什么情况下要使用动态规划？</p>
-<p>TCP和UDP之间的区别</p>
-<p>解释什么是中心极限定理</p>
-<p>C++虚函数的原理</p>
-<p>你科研训练中用到的算法以及对科研项目其他的算法是否有了解？</p>
-<p>怎样快速找到数组中第k大的数？</p>
-<p>讲讲你在数学建模中是如何处理数据的？</p>
-<ol>
-<li>操作系统</li>
-</ol>
-<p>（1）磁盘，空闲空间的管理方案和磁盘的存储等一些计算。</p>
-<p>（2）页式管理，页号的计算、物理和逻辑存储地址几位，以及访问快表时的命中率为N时，时间为多少.</p>
-<p>（3）处理器调度问题，涉及优先级调度，最短作业调度，时间片轮转，用甘特图表示出来，需要注意的是cpu的数量，我做的题目是两个CPU；</p>
-<ol start="2">
-<li>数据结构（主要是各个算法的思想）</li>
-</ol>
-<p>（1）归并排序，内部排序（排序方法在内存中进行），外排序为什么不用多路归并。</p>
-<p>（2）AVL平衡树旋转，从一个状态插入、删除一个数时，最多旋转几次。</p>
-<p>（3）二叉树，证明二度节点数与零度节点数的关系。</p>
-<p>（4）回文链，设计一个算法证明一个链时回文链，使得时间复杂度为O(n)空间复杂度为O(1)。</p>
-<p>（5）最短路径算法，具体实现中的细节小问题。</p>
-<h2 id="7-专业术语（英文）"><a href="#7-专业术语（英文）" class="headerlink" title="7. 专业术语（英文）"></a>7. 专业术语（英文）</h2>
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
+  <nav class="pagination">
+    <span class="page-number current">1</span><a class="page-number" href="/archives/page/2/">2</a><a class="extend next" rel="next" href="/archives/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+  </nav>
 
 </div>
   </main>
