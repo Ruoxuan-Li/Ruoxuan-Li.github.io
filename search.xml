@@ -1,15 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>hexo插入图片</title>
-    <url>/2023/03/22/hexo%E6%8F%92%E5%85%A5%E5%9B%BE%E7%89%87/</url>
-    <content><![CDATA[<h5 id="hexo博客插入图片"><a href="#hexo博客插入图片" class="headerlink" title="hexo博客插入图片"></a>hexo博客插入图片</h5><p><a href="https://blog.csdn.net/m0_43401436/article/details/107191688">hexo博客中插入图片失败——解决思路及个人最终解决办法_hexo 出现重复路径_金牛大王的博客-CSDN博客</a></p>
-]]></content>
-      <tags>
-        <tag>hexo博客帮助文档</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Encoder-Decoder详解及其数学本质</title>
     <url>/2022/12/04/Encoder-Decoder%E8%AF%A6%E8%A7%A3%E5%8F%8A%E5%85%B6%E6%95%B0%E5%AD%A6%E6%9C%AC%E8%B4%A8/</url>
     <content><![CDATA[<h5 id="前言：encoder-decoder-也即-编码器-解码器-结构，它属于一种抽象性的结构，并不表示某一具体结构，在下文可以看到有许多机器学习算法都服从这一结构。"><a href="#前言：encoder-decoder-也即-编码器-解码器-结构，它属于一种抽象性的结构，并不表示某一具体结构，在下文可以看到有许多机器学习算法都服从这一结构。" class="headerlink" title="前言：encoder-decoder 也即 编码器-解码器 结构，它属于一种抽象性的结构，并不表示某一具体结构，在下文可以看到有许多机器学习算法都服从这一结构。"></a>前言：encoder-decoder 也即 编码器-解码器 结构，它属于一种抽象性的结构，并不表示某一具体结构，在下文可以看到有许多机器学习算法都服从这一结构。</h5><h5 id="引入："><a href="#引入：" class="headerlink" title="引入："></a>引入：</h5><p>在机器学习中，很多问题可以抽象出类似的模型：</p>
@@ -27,6 +18,15 @@
 <p>训练时编码器对输入向量进行映射，得到编码后的向量；解码器对编码向量进行映射，得到重构后的向量，它是对输入向量的近似。编码器和解码器同时训练，训练的目标是最小化重构误差，即让重构向量与原始输入向量之间的误差最小化，这与PCA非常类似。因此样本x的标签值就是样本自身。</p>
 <p>训练完成之后，在预测时只使用编码器而不再需要解码器，编码器的输出结果被进一步使用，用于分类，回个等任务。</p>
 ]]></content>
+  </entry>
+  <entry>
+    <title>hexo插入图片</title>
+    <url>/2023/03/22/hexo%E6%8F%92%E5%85%A5%E5%9B%BE%E7%89%87/</url>
+    <content><![CDATA[<h5 id="hexo博客插入图片"><a href="#hexo博客插入图片" class="headerlink" title="hexo博客插入图片"></a>hexo博客插入图片</h5><p><a href="https://blog.csdn.net/m0_43401436/article/details/107191688">hexo博客中插入图片失败——解决思路及个人最终解决办法_hexo 出现重复路径_金牛大王的博客-CSDN博客</a></p>
+]]></content>
+      <tags>
+        <tag>hexo博客帮助文档</tag>
+      </tags>
   </entry>
   <entry>
     <title>.sh脚本编写</title>
@@ -72,6 +72,13 @@
       </tags>
   </entry>
   <entry>
+    <title>摘抄录</title>
+    <url>/2022/10/04/%E6%91%98%E6%8A%84%E5%BD%95/</url>
+    <content><![CDATA[<p>万家墨面没蒿莱，敢有歌吟动地哀。心事浩茫连广宇，于无声处听惊雷。<br>——鲁迅《无题·万家墨面没蒿莱》<br>译文：黎民百姓们像黑瘦的囚徒，流离失所于荒野，哪还敢有慷慨悲歌，引发动地的哀声。我心里想的事很多、很远，连通着广大国土上的人民，所以从表面沉寂中，我能听到革命春雷的萌动。</p>
+<p>​        我们自古以来，就有埋头苦干的人，有拼命硬干的人，有为民请命的人，有舍身求法的人，……虽是等于为帝王将相作家谱的所谓“正史”，也往往掩不住他们的光耀，这就是中国的脊梁。<br>​        这一类的人们，就是现在也何尝少呢？他们有确信，不自欺；他们在前仆后继地战斗，不过一面总在被摧残，被抹杀，消灭于黑暗中，不能为大家所知道罢了。说中国人失掉自信力，用于指一部分人则可，倘若加于全体，那简直是污蔑。<br>​        要论中国人，必须不被搽在表面的自欺欺人的脂粉所诓骗，却看看他的筋骨和脊梁。自信力的有无，状元宰相的文章是不足为据的，要自己去看地底下。<br>——鲁迅《中国人失掉自信力了吗？》</p>
+]]></content>
+  </entry>
+  <entry>
     <title>编程笔记【4.3】</title>
     <url>/2023/04/03/%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0%E3%80%904-3%E3%80%91/</url>
     <content><![CDATA[<h5 id="Python-之-使用argparse模块编写命令行接口"><a href="#Python-之-使用argparse模块编写命令行接口" class="headerlink" title="Python 之 使用argparse模块编写命令行接口"></a>Python 之 使用argparse模块编写命令行接口</h5><p>argparse模块是Python内置的一个用于命令行选项、参数和子命令解析器的模块。</p>
@@ -93,13 +100,6 @@
       <tags>
         <tag>python编程</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>摘抄录</title>
-    <url>/2022/10/04/%E6%91%98%E6%8A%84%E5%BD%95/</url>
-    <content><![CDATA[<p>万家墨面没蒿莱，敢有歌吟动地哀。心事浩茫连广宇，于无声处听惊雷。<br>——鲁迅《无题·万家墨面没蒿莱》<br>译文：黎民百姓们像黑瘦的囚徒，流离失所于荒野，哪还敢有慷慨悲歌，引发动地的哀声。我心里想的事很多、很远，连通着广大国土上的人民，所以从表面沉寂中，我能听到革命春雷的萌动。</p>
-<p>​        我们自古以来，就有埋头苦干的人，有拼命硬干的人，有为民请命的人，有舍身求法的人，……虽是等于为帝王将相作家谱的所谓“正史”，也往往掩不住他们的光耀，这就是中国的脊梁。<br>​        这一类的人们，就是现在也何尝少呢？他们有确信，不自欺；他们在前仆后继地战斗，不过一面总在被摧残，被抹杀，消灭于黑暗中，不能为大家所知道罢了。说中国人失掉自信力，用于指一部分人则可，倘若加于全体，那简直是污蔑。<br>​        要论中国人，必须不被搽在表面的自欺欺人的脂粉所诓骗，却看看他的筋骨和脊梁。自信力的有无，状元宰相的文章是不足为据的，要自己去看地底下。<br>——鲁迅《中国人失掉自信力了吗？》</p>
-]]></content>
   </entry>
   <entry>
     <title>编程笔记【4.4】</title>
@@ -155,6 +155,56 @@
 ]]></content>
       <categories>
         <category>多模态融合</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>论文阅读《What Makes Training Multi-modal Classification Networks Hard?》</title>
+    <url>/2023/03/23/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-OGR-GB/</url>
+    <content><![CDATA[<h5 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h5><p>考虑在具有多个输入模态的任务上对多模态网络与单模态网络进行端到端训练：多模态网络接收到更多信息，因此它应该匹配或优于其相应的单模态网络。<font color='pink'>然而，在我们的实验中观察到相反的现象：最好的单模态网络通常优于多模态网络。这一观察结果在模态的不同组合以及视频分类的不同任务和基准之间是一致的。</font>本文认为导致这种结果的原因有两点：①多模态网络的参数量增大，导致模型容易过拟合。②不同模态以不同的速率过拟合和泛化，因此以单一的联合训练策略来训练网络是次优的方案。进而本文针对这两个原因提出了解决方案：Gradient Blending梯度混合。<br>【批注】标红的部分是本文的motivation，即问题的出发点。这里有些瑕疵，是因为这里的融合机制设定<strong>都是后融合，并且是比较简单的后融合方法。</strong>这些融合方法本身可能存在比较大的缺陷。所以这个问题是否成立 还可以在其他融合方法（如前融合、混合融合以及基于模型的融合方法）进行验证。</p>
+<h5 id="引入"><a href="#引入" class="headerlink" title="引入"></a>引入</h5><img src="C:\Users\xuan\AppData\Roaming\Typora\typora-user-images\image-20230323182214807.png" alt="image-20230323182214807" style="zoom: 50%;" />
+图1：不同防止过拟合的方法&不同融合方法
+
+<p>上图：RGB是最佳的单模态网络<br>late-concat是Audio+RGB双模态基于(后)串联融合的方法（即多模态网络使用与单模态相同的架构，在预测之前的最后一层连接后期融合）<br>这种下降的现象在不同的模态组合和不同的betchmark数据集上都存在，如下图（这里只展示了一个数据集Kinetics上的结果）：<br>                                      <img src="C:\Users\xuan\AppData\Roaming\Typora\typora-user-images\image-20230323182820165.png" alt="image-20230323182820165" style="zoom:50%;" /><br>而针对这种现象，容易想到的原因有两个：①是由于后融合操作使得模型容量增大，从而导致过拟合造成的；②是由于late-concat这种融合方法欠佳导致的。针对这两个原因，作者先进行了实验，结果如图1所示。只有dropout和mid-concat相比于单模态RGB有一点提升。</p>
+<h6 id="不同的融合机制"><a href="#不同的融合机制" class="headerlink" title="不同的融合机制"></a>不同的融合机制</h6><p>这里作者希望说明，出现模型性能下降的原因不是由于late-concat导致的，或者说模型性能下降的现象在多种融合方法上都存在。文中在4种融合机制上进行了实验。</p>
+<table>
+<thead>
+<tr>
+<th>融合方法</th>
+<th>模型图</th>
+<th>模型机制</th>
+<th>实验准确度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>late-concat</td>
+<td><img src="C:\Users\xuan\AppData\Roaming\Typora\typora-user-images\image-20230323185223847.png" alt="image-20230323185223847" style="zoom: 33%;" /></td>
+<td>先分别通过单模态网络抽取特征，完成后将特征直接串联，经过一个全连接层映射到同一空间，得到融合特征。</td>
+<td>71.4</td>
+</tr>
+<tr>
+<td>mid-concat</td>
+<td><img src="C:\Users\xuan\AppData\Roaming\Typora\typora-user-images\image-20230323190149854.png" alt="image-20230323190149854" style="zoom:33%;" /></td>
+<td>中间串联&#x2F;中间融合&#x2F;前融合。先经过浅层网络提取浅层特征，再将浅层特征串联，再输入到若干层网络</td>
+<td>72.8</td>
+</tr>
+<tr>
+<td>SE-gate</td>
+<td></td>
+<td>一种Gate机制</td>
+<td>71.4</td>
+</tr>
+<tr>
+<td>NL-gate</td>
+<td></td>
+<td>一种Gate机制</td>
+<td>72</td>
+</tr>
+</tbody></table>
+<h6 id="不同的解决过拟合的常用方法"><a href="#不同的解决过拟合的常用方法" class="headerlink" title="不同的解决过拟合的常用方法"></a>不同的解决过拟合的常用方法</h6><p>如果使用这些解决过拟合的策略并不能带来模型性能的提升，那么证明多模态模型性能下降的原因不是因为过拟合？这里作者观察到 dropout 和 mid-concat（与 late-concat 相比，参数减少了 37%）比 lateconcat 提高了 1.5% 和 1.4%，这证实了后期concat 的过度拟合问题。<font color='pink'>（那么另外两种方法：pretrain和early-stop为什么不起作用呢。这两种没有改变网络参数量？）</font></p>
+<h6 id="dropout"><a href="#dropout" class="headerlink" title="dropout"></a>dropout</h6><p>一个感受：比如为什么在2022年阅读一篇2020年的文章时，会被其中引用的2018年的文章所吸引，2018年的那篇被引用的文章大概率质量比较高。这是因为经过了时间的烤盐啊……</p>
+]]></content>
+      <categories>
+        <category>论文阅读</category>
       </categories>
   </entry>
   <entry>
@@ -216,55 +266,5 @@
       <tags>
         <tag>保研面试</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>论文阅读《What Makes Training Multi-modal Classification Networks Hard?》</title>
-    <url>/2023/03/23/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-OGR-GB/</url>
-    <content><![CDATA[<h5 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h5><p>考虑在具有多个输入模态的任务上对多模态网络与单模态网络进行端到端训练：多模态网络接收到更多信息，因此它应该匹配或优于其相应的单模态网络。<font color='pink'>然而，在我们的实验中观察到相反的现象：最好的单模态网络通常优于多模态网络。这一观察结果在模态的不同组合以及视频分类的不同任务和基准之间是一致的。</font>本文认为导致这种结果的原因有两点：①多模态网络的参数量增大，导致模型容易过拟合。②不同模态以不同的速率过拟合和泛化，因此以单一的联合训练策略来训练网络是次优的方案。进而本文针对这两个原因提出了解决方案：Gradient Blending梯度混合。<br>【批注】标红的部分是本文的motivation，即问题的出发点。这里有些瑕疵，是因为这里的融合机制设定<strong>都是后融合，并且是比较简单的后融合方法。</strong>这些融合方法本身可能存在比较大的缺陷。所以这个问题是否成立 还可以在其他融合方法（如前融合、混合融合以及基于模型的融合方法）进行验证。</p>
-<h5 id="引入"><a href="#引入" class="headerlink" title="引入"></a>引入</h5><img src="C:\Users\xuan\AppData\Roaming\Typora\typora-user-images\image-20230323182214807.png" alt="image-20230323182214807" style="zoom: 50%;" />
-图1：不同防止过拟合的方法&不同融合方法
-
-<p>上图：RGB是最佳的单模态网络<br>late-concat是Audio+RGB双模态基于(后)串联融合的方法（即多模态网络使用与单模态相同的架构，在预测之前的最后一层连接后期融合）<br>这种下降的现象在不同的模态组合和不同的betchmark数据集上都存在，如下图（这里只展示了一个数据集Kinetics上的结果）：<br>                                      <img src="C:\Users\xuan\AppData\Roaming\Typora\typora-user-images\image-20230323182820165.png" alt="image-20230323182820165" style="zoom:50%;" /><br>而针对这种现象，容易想到的原因有两个：①是由于后融合操作使得模型容量增大，从而导致过拟合造成的；②是由于late-concat这种融合方法欠佳导致的。针对这两个原因，作者先进行了实验，结果如图1所示。只有dropout和mid-concat相比于单模态RGB有一点提升。</p>
-<h6 id="不同的融合机制"><a href="#不同的融合机制" class="headerlink" title="不同的融合机制"></a>不同的融合机制</h6><p>这里作者希望说明，出现模型性能下降的原因不是由于late-concat导致的，或者说模型性能下降的现象在多种融合方法上都存在。文中在4种融合机制上进行了实验。</p>
-<table>
-<thead>
-<tr>
-<th>融合方法</th>
-<th>模型图</th>
-<th>模型机制</th>
-<th>实验准确度</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>late-concat</td>
-<td><img src="C:\Users\xuan\AppData\Roaming\Typora\typora-user-images\image-20230323185223847.png" alt="image-20230323185223847" style="zoom: 33%;" /></td>
-<td>先分别通过单模态网络抽取特征，完成后将特征直接串联，经过一个全连接层映射到同一空间，得到融合特征。</td>
-<td>71.4</td>
-</tr>
-<tr>
-<td>mid-concat</td>
-<td><img src="C:\Users\xuan\AppData\Roaming\Typora\typora-user-images\image-20230323190149854.png" alt="image-20230323190149854" style="zoom:33%;" /></td>
-<td>中间串联&#x2F;中间融合&#x2F;前融合。先经过浅层网络提取浅层特征，再将浅层特征串联，再输入到若干层网络</td>
-<td>72.8</td>
-</tr>
-<tr>
-<td>SE-gate</td>
-<td></td>
-<td>一种Gate机制</td>
-<td>71.4</td>
-</tr>
-<tr>
-<td>NL-gate</td>
-<td></td>
-<td>一种Gate机制</td>
-<td>72</td>
-</tr>
-</tbody></table>
-<h6 id="不同的解决过拟合的常用方法"><a href="#不同的解决过拟合的常用方法" class="headerlink" title="不同的解决过拟合的常用方法"></a>不同的解决过拟合的常用方法</h6><p>如果使用这些解决过拟合的策略并不能带来模型性能的提升，那么证明多模态模型性能下降的原因不是因为过拟合？这里作者观察到 dropout 和 mid-concat（与 late-concat 相比，参数减少了 37%）比 lateconcat 提高了 1.5% 和 1.4%，这证实了后期concat 的过度拟合问题。<font color='pink'>（那么另外两种方法：pretrain和early-stop为什么不起作用呢。这两种没有改变网络参数量？）</font></p>
-<h6 id="dropout"><a href="#dropout" class="headerlink" title="dropout"></a>dropout</h6><p>一个感受：比如为什么在2022年阅读一篇2020年的文章时，会被其中引用的2018年的文章所吸引，2018年的那篇被引用的文章大概率质量比较高。这是因为经过了时间的烤盐啊……</p>
-]]></content>
-      <categories>
-        <category>论文阅读</category>
-      </categories>
   </entry>
 </search>
