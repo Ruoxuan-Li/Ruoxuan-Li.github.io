@@ -1,15 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>多模态学习</title>
-    <url>/2022/09/01/%E5%A4%9A%E6%A8%A1%E6%80%81%E5%AD%A6%E4%B9%A0/</url>
-    <content><![CDATA[<p>多模态学习：使用机器学习方法对多源异构信息进行挖掘和分析。</p>
-]]></content>
-      <tags>
-        <tag>多模态学习</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Encoder-Decoder详解及其数学本质</title>
     <url>/2022/12/04/Encoder-Decoder%E8%AF%A6%E8%A7%A3%E5%8F%8A%E5%85%B6%E6%95%B0%E5%AD%A6%E6%9C%AC%E8%B4%A8/</url>
     <content><![CDATA[<h5 id="前言：encoder-decoder-也即-编码器-解码器-结构，它属于一种抽象性的结构，并不表示某一具体结构，在下文可以看到有许多机器学习算法都服从这一结构。"><a href="#前言：encoder-decoder-也即-编码器-解码器-结构，它属于一种抽象性的结构，并不表示某一具体结构，在下文可以看到有许多机器学习算法都服从这一结构。" class="headerlink" title="前言：encoder-decoder 也即 编码器-解码器 结构，它属于一种抽象性的结构，并不表示某一具体结构，在下文可以看到有许多机器学习算法都服从这一结构。"></a>前言：encoder-decoder 也即 编码器-解码器 结构，它属于一种抽象性的结构，并不表示某一具体结构，在下文可以看到有许多机器学习算法都服从这一结构。</h5><h5 id="引入："><a href="#引入：" class="headerlink" title="引入："></a>引入：</h5><p>在机器学习中，很多问题可以抽象出类似的模型：</p>
@@ -79,6 +70,38 @@
       </tags>
   </entry>
   <entry>
+    <title>编程笔记【4.3】</title>
+    <url>/2023/04/03/%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0%E3%80%904-3%E3%80%91/</url>
+    <content><![CDATA[<h5 id="Python-之-使用argparse模块编写命令行接口"><a href="#Python-之-使用argparse模块编写命令行接口" class="headerlink" title="Python 之 使用argparse模块编写命令行接口"></a>Python 之 使用argparse模块编写命令行接口</h5><p>argparse模块是Python内置的一个用于命令行选项、参数和子命令解析器的模块。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 创建一个解析器，即一个ArgumentParser对象</span></span><br><span class="line">parser=argparse.ArgumentParser(description=<span class="string">&#x27;Full Pipeline Training&#x27;</span>)</span><br><span class="line"><span class="comment"># 添加参数</span></span><br><span class="line">parser.add_argument(<span class="string">&#x27;--data_path&#x27;</span>,<span class="built_in">type</span>=<span class="built_in">str</span>, default=<span class="string">&#x27;/path/to/data&#x27;</span>, <span class="built_in">help</span>=<span class="string">&#x27;root dir that contain train data and test data. &#x27;</span>)</span><br><span class="line">parser.add_argument(<span class="string">&#x27;-c&#x27;</span>, <span class="string">&#x27;--ckpt&#x27;</span>, <span class="built_in">type</span>=<span class="built_in">str</span>, default=<span class="string">&#x27;/path/to/ckpt&#x27;</span>, metavar=<span class="string">&#x27;PATH&#x27;</span>, <span class="built_in">help</span>=<span class="string">&#x27;path to the latest checkpoint (default: model)&#x27;</span>)</span><br><span class="line">parser.add_argument(<span class="string">&#x27;--gpu&#x27;</span>, <span class="built_in">type</span>=<span class="built_in">int</span>, nargs=<span class="string">&#x27;+&#x27;</span>, default=[<span class="number">6</span>], <span class="built_in">help</span>=<span class="string">&#x27;select gpu. &#x27;</span>)</span><br><span class="line">parser.add_argument(<span class="string">&#x27;--train&#x27;</span>, action=<span class="string">&#x27;store_true&#x27;</span>, default=<span class="literal">True</span>, <span class="built_in">help</span>=<span class="string">&#x27;If true, the model will train, else only validate. &#x27;</span>)</span><br><span class="line">parser.add_argument(<span class="string">&#x27;--alpha&#x27;</span>, require=<span class="literal">True</span>, <span class="built_in">type</span>=<span class="built_in">float</span>, <span class="built_in">help</span>=<span class="string">&#x27;alpha in the modal. &#x27;</span>)</span><br><span class="line"><span class="comment"># 使用</span></span><br><span class="line">args=parser.parse_args()</span><br></pre></td></tr></table></figure>
+
+<p>上面涉及到的一些用法：</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line">&#x27;-c&#x27;, &#x27;--ckpt&#x27;  表示在命令行使用&#x27;-c&#x27;和&#x27;--ckpt&#x27;都会解析到同一个命令行参数</span><br><span class="line"></span><br><span class="line">default 表示不指定参数时的默认值</span><br><span class="line"></span><br><span class="line">metavar 在 usage说明中的参数名称</span><br><span class="line"></span><br><span class="line">nargs 应该读取的命令行参数个数，可以是具体数字或者？号，当不指定值时对position argument(位置参数)使用</span><br><span class="line">default，对于option argument(选项参数)使用const，使用*号：表示0或多个参数；使用+号，表示1或多个参数，传参时可以用list来表示，如[1,2,3]</span><br><span class="line"></span><br><span class="line">action=&#x27;store_true&#x27; 只要运行时对该变量有传参（就是xx.py --train这样写），就将该变量设为True</span><br><span class="line"></span><br><span class="line">require=True 可选参数不能省略</span><br></pre></td></tr></table></figure>
+
+<p>关于选项参数和位置参数</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line">parser.add_argument(&#x27;-c&#x27;, &#x27;--ckpt&#x27;)   # 选项参数</span><br><span class="line">parser.add_argument(&#x27;bar&#x27;)       # 位置参数</span><br><span class="line">位置参数是指命令行参数的顺序必须与定义时候的前后顺序一致，而选项参数可以在命令行中的任意位置指定。一般不用位置参数，不太方便和直观。</span><br></pre></td></tr></table></figure>
+
+<h5 id="pytorch-之-保存和加载ckpt模型"><a href="#pytorch-之-保存和加载ckpt模型" class="headerlink" title="pytorch 之 保存和加载ckpt模型"></a>pytorch 之 保存和加载ckpt模型</h5><p>保存模型</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">torch.save(model, <span class="string">&#x27;save.pth&#x27;</span>)  <span class="comment"># 保存整个模型</span></span><br><span class="line">torch.save(model.state_dict(), <span class="string">&#x27;save.pth&#x27;</span>)  <span class="comment"># 只保存训练好的权重</span></span><br></pre></td></tr></table></figure>
+
+<p>加载模型</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">model_dict = model.state_dict()   <span class="comment"># 得到一个字典，字典中保存了模型中所有可学习参数的键值对(key: value)</span></span><br><span class="line">model_dict_keys = model_dict.keys()    <span class="comment"># keys()函数以list形式返回一个字典中的所有键</span></span><br><span class="line">model.load_state_dict(model_dict, strict=<span class="literal">True</span>)   <span class="comment"># 加载模型参数，strict=True要求model_dict的关键字必须严格与该模型的state_dict()函数返回的关键字相匹配</span></span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <tags>
+        <tag>python编程</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>多模态学习</title>
+    <url>/2022/09/01/%E5%A4%9A%E6%A8%A1%E6%80%81%E5%AD%A6%E4%B9%A0/</url>
+    <content><![CDATA[<p>多模态学习：使用机器学习方法对多源异构信息进行挖掘和分析。</p>
+]]></content>
+      <tags>
+        <tag>多模态学习</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>考虑数据不均衡问题的多模态分类</title>
     <url>/2022/12/09/%E8%80%83%E8%99%91%E6%95%B0%E6%8D%AE%E4%B8%8D%E5%9D%87%E8%A1%A1%E9%97%AE%E9%A2%98%E7%9A%84%E5%A4%9A%E6%A8%A1%E6%80%81%E5%88%86%E7%B1%BB/</url>
     <content><![CDATA[<p>这篇报告是关于考虑数据不均衡问题的多模态分类系统框架介绍。</p>
@@ -119,6 +142,69 @@
 ]]></content>
       <categories>
         <category>多模态融合</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>编程笔记【4.4】</title>
+    <url>/2023/04/04/%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0%E3%80%904.4%E3%80%91/</url>
+    <content><![CDATA[<h6 id="记录一件奇怪的现象"><a href="#记录一件奇怪的现象" class="headerlink" title="记录一件奇怪的现象"></a>记录一件奇怪的现象</h6><p>我先在卡4上跑了两个epoch，并且把ckpt保存了下来。接着在卡7上继续跑，然后nvidia-smi查看GPU使用情况时发现卡4和卡7上都创建了进程，且是同一个进程号。如果kill -9 PID 则进程被杀死，则我的终端显示python程序结束，并显示：process finished with exit code 137 </p>
+<p>请问这是为啥涅？</p>
+<p>好家伙，感觉多GPU保存和加载模型时也会有坑需要注意，虽然我还没遇到过，先挖个坑……</p>
+<h6 id="小结-深度学习代码编写框架"><a href="#小结-深度学习代码编写框架" class="headerlink" title="小结 深度学习代码编写框架"></a>小结 深度学习代码编写框架</h6><figure class="highlight html"><table><tr><td class="code"><pre><span class="line">-项目名</span><br><span class="line">	-ckpt文件夹（存放各种中间数据）</span><br><span class="line">		-数据集1_模型1</span><br><span class="line">			保存JOSN文件——&gt;存放你的一些配置信息,比如优化器、学习率、批处理大小、...</span><br><span class="line">			保存log.txt——&gt;存放你想在中间过程记录的一些信息，比如每轮结束输出一次xx指标</span><br><span class="line">			保存best_model.pth——&gt;以某种指标存放训练过程中的最佳模型数据</span><br><span class="line">			保存lateset_model.pth——&gt;存放最后一个epoch结束后得到的模型数据</span><br><span class="line">		-数据集2_模型1</span><br><span class="line">		-数据集1_模型2</span><br><span class="line">		-数据集2_模型2</span><br><span class="line">		-...</span><br><span class="line">    -datasets文件夹（存放各种数据集类）</span><br><span class="line">    	-Dataset1.py (里面对Dataset1构建类和方法，用于dataloader调用)</span><br><span class="line">    	-Dataset2.py </span><br><span class="line">    	-...</span><br><span class="line">    -models文件夹 （构造你的模型）	(models这部分的编写不是很固定，按照需求编写即可)</span><br><span class="line">    	-Total_model.py (最后的完整模型，输入是样本数据，输出是整体pipeline的输出)</span><br><span class="line">    	-backbone.py (模型一般有backbone)</span><br><span class="line">    	-modules.py (一些你自己特殊构造的模块/机制)</span><br><span class="line">    	-...</span><br><span class="line">    -utils文件夹</span><br><span class="line">    	-helpers.py (写一些其他的辅助功能函数)</span><br><span class="line">    	-...</span><br><span class="line">    -config.py (配置文件,包括配置数据路径、模型类型、学习率、权重衰减率等超参数)</span><br><span class="line">    -main.py (主函数,实现模型的训练和评估等)</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <tags>
+        <tag>python编程</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>论文阅读《What Makes Training Multi-modal Classification Networks Hard?》</title>
+    <url>/2023/03/23/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-OGR-GB/</url>
+    <content><![CDATA[<h5 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h5><p>考虑在具有多个输入模态的任务上对多模态网络与单模态网络进行端到端训练：多模态网络接收到更多信息，因此它应该匹配或优于其相应的单模态网络。<font color='pink'>然而，在我们的实验中观察到相反的现象：最好的单模态网络通常优于多模态网络。这一观察结果在模态的不同组合以及视频分类的不同任务和基准之间是一致的。</font>本文认为导致这种结果的原因有两点：①多模态网络的参数量增大，导致模型容易过拟合。②不同模态以不同的速率过拟合和泛化，因此以单一的联合训练策略来训练网络是次优的方案。进而本文针对这两个原因提出了解决方案：Gradient Blending梯度混合。<br>【批注】标红的部分是本文的motivation，即问题的出发点。这里有些瑕疵，是因为这里的融合机制设定<strong>都是后融合，并且是比较简单的后融合方法。</strong>这些融合方法本身可能存在比较大的缺陷。所以这个问题是否成立 还可以在其他融合方法（如前融合、混合融合以及基于模型的融合方法）进行验证。</p>
+<h5 id="引入"><a href="#引入" class="headerlink" title="引入"></a>引入</h5><img src="C:\Users\xuan\AppData\Roaming\Typora\typora-user-images\image-20230323182214807.png" alt="image-20230323182214807" style="zoom: 50%;" />
+图1：不同防止过拟合的方法&不同融合方法
+
+<p>上图：RGB是最佳的单模态网络<br>late-concat是Audio+RGB双模态基于(后)串联融合的方法（即多模态网络使用与单模态相同的架构，在预测之前的最后一层连接后期融合）<br>这种下降的现象在不同的模态组合和不同的betchmark数据集上都存在，如下图（这里只展示了一个数据集Kinetics上的结果）：<br>                                      <img src="C:\Users\xuan\AppData\Roaming\Typora\typora-user-images\image-20230323182820165.png" alt="image-20230323182820165" style="zoom:50%;" /><br>而针对这种现象，容易想到的原因有两个：①是由于后融合操作使得模型容量增大，从而导致过拟合造成的；②是由于late-concat这种融合方法欠佳导致的。针对这两个原因，作者先进行了实验，结果如图1所示。只有dropout和mid-concat相比于单模态RGB有一点提升。</p>
+<h6 id="不同的融合机制"><a href="#不同的融合机制" class="headerlink" title="不同的融合机制"></a>不同的融合机制</h6><p>这里作者希望说明，出现模型性能下降的原因不是由于late-concat导致的，或者说模型性能下降的现象在多种融合方法上都存在。文中在4种融合机制上进行了实验。</p>
+<table>
+<thead>
+<tr>
+<th>融合方法</th>
+<th>模型图</th>
+<th>模型机制</th>
+<th>实验准确度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>late-concat</td>
+<td><img src="C:\Users\xuan\AppData\Roaming\Typora\typora-user-images\image-20230323185223847.png" alt="image-20230323185223847" style="zoom: 33%;" /></td>
+<td>先分别通过单模态网络抽取特征，完成后将特征直接串联，经过一个全连接层映射到同一空间，得到融合特征。</td>
+<td>71.4</td>
+</tr>
+<tr>
+<td>mid-concat</td>
+<td><img src="C:\Users\xuan\AppData\Roaming\Typora\typora-user-images\image-20230323190149854.png" alt="image-20230323190149854" style="zoom:33%;" /></td>
+<td>中间串联&#x2F;中间融合&#x2F;前融合。先经过浅层网络提取浅层特征，再将浅层特征串联，再输入到若干层网络</td>
+<td>72.8</td>
+</tr>
+<tr>
+<td>SE-gate</td>
+<td></td>
+<td>一种Gate机制</td>
+<td>71.4</td>
+</tr>
+<tr>
+<td>NL-gate</td>
+<td></td>
+<td>一种Gate机制</td>
+<td>72</td>
+</tr>
+</tbody></table>
+<h6 id="不同的解决过拟合的常用方法"><a href="#不同的解决过拟合的常用方法" class="headerlink" title="不同的解决过拟合的常用方法"></a>不同的解决过拟合的常用方法</h6><p>如果使用这些解决过拟合的策略并不能带来模型性能的提升，那么证明多模态模型性能下降的原因不是因为过拟合？这里作者观察到 dropout 和 mid-concat（与 late-concat 相比，参数减少了 37%）比 lateconcat 提高了 1.5% 和 1.4%，这证实了后期concat 的过度拟合问题。<font color='pink'>（那么另外两种方法：pretrain和early-stop为什么不起作用呢。这两种没有改变网络参数量？）</font></p>
+<h6 id="dropout"><a href="#dropout" class="headerlink" title="dropout"></a>dropout</h6><p>一个感受：比如为什么在2022年阅读一篇2020年的文章时，会被其中引用的2018年的文章所吸引，2018年的那篇被引用的文章大概率质量比较高。这是因为经过了时间的烤盐啊……</p>
+]]></content>
+      <categories>
+        <category>论文阅读</category>
       </categories>
   </entry>
   <entry>
@@ -180,55 +266,5 @@
       <tags>
         <tag>保研面试</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>论文阅读《What Makes Training Multi-modal Classification Networks Hard?》</title>
-    <url>/2023/03/23/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-OGR-GB/</url>
-    <content><![CDATA[<h5 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h5><p>考虑在具有多个输入模态的任务上对多模态网络与单模态网络进行端到端训练：多模态网络接收到更多信息，因此它应该匹配或优于其相应的单模态网络。<font color='pink'>然而，在我们的实验中观察到相反的现象：最好的单模态网络通常优于多模态网络。这一观察结果在模态的不同组合以及视频分类的不同任务和基准之间是一致的。</font>本文认为导致这种结果的原因有两点：①多模态网络的参数量增大，导致模型容易过拟合。②不同模态以不同的速率过拟合和泛化，因此以单一的联合训练策略来训练网络是次优的方案。进而本文针对这两个原因提出了解决方案：Gradient Blending梯度混合。<br>【批注】标红的部分是本文的motivation，即问题的出发点。这里有些瑕疵，是因为这里的融合机制设定<strong>都是后融合，并且是比较简单的后融合方法。</strong>这些融合方法本身可能存在比较大的缺陷。所以这个问题是否成立 还可以在其他融合方法（如前融合、混合融合以及基于模型的融合方法）进行验证。</p>
-<h5 id="引入"><a href="#引入" class="headerlink" title="引入"></a>引入</h5><img src="C:\Users\xuan\AppData\Roaming\Typora\typora-user-images\image-20230323182214807.png" alt="image-20230323182214807" style="zoom: 50%;" />
-图1：不同防止过拟合的方法&不同融合方法
-
-<p>上图：RGB是最佳的单模态网络<br>late-concat是Audio+RGB双模态基于(后)串联融合的方法（即多模态网络使用与单模态相同的架构，在预测之前的最后一层连接后期融合）<br>这种下降的现象在不同的模态组合和不同的betchmark数据集上都存在，如下图（这里只展示了一个数据集Kinetics上的结果）：<br>                                      <img src="C:\Users\xuan\AppData\Roaming\Typora\typora-user-images\image-20230323182820165.png" alt="image-20230323182820165" style="zoom:50%;" /><br>而针对这种现象，容易想到的原因有两个：①是由于后融合操作使得模型容量增大，从而导致过拟合造成的；②是由于late-concat这种融合方法欠佳导致的。针对这两个原因，作者先进行了实验，结果如图1所示。只有dropout和mid-concat相比于单模态RGB有一点提升。</p>
-<h6 id="不同的融合机制"><a href="#不同的融合机制" class="headerlink" title="不同的融合机制"></a>不同的融合机制</h6><p>这里作者希望说明，出现模型性能下降的原因不是由于late-concat导致的，或者说模型性能下降的现象在多种融合方法上都存在。文中在4种融合机制上进行了实验。</p>
-<table>
-<thead>
-<tr>
-<th>融合方法</th>
-<th>模型图</th>
-<th>模型机制</th>
-<th>实验准确度</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>late-concat</td>
-<td><img src="C:\Users\xuan\AppData\Roaming\Typora\typora-user-images\image-20230323185223847.png" alt="image-20230323185223847" style="zoom: 33%;" /></td>
-<td>先分别通过单模态网络抽取特征，完成后将特征直接串联，经过一个全连接层映射到同一空间，得到融合特征。</td>
-<td>71.4</td>
-</tr>
-<tr>
-<td>mid-concat</td>
-<td><img src="C:\Users\xuan\AppData\Roaming\Typora\typora-user-images\image-20230323190149854.png" alt="image-20230323190149854" style="zoom:33%;" /></td>
-<td>中间串联&#x2F;中间融合&#x2F;前融合。先经过浅层网络提取浅层特征，再将浅层特征串联，再输入到若干层网络</td>
-<td>72.8</td>
-</tr>
-<tr>
-<td>SE-gate</td>
-<td></td>
-<td>一种Gate机制</td>
-<td>71.4</td>
-</tr>
-<tr>
-<td>NL-gate</td>
-<td></td>
-<td>一种Gate机制</td>
-<td>72</td>
-</tr>
-</tbody></table>
-<h6 id="不同的解决过拟合的常用方法"><a href="#不同的解决过拟合的常用方法" class="headerlink" title="不同的解决过拟合的常用方法"></a>不同的解决过拟合的常用方法</h6><p>如果使用这些解决过拟合的策略并不能带来模型性能的提升，那么证明多模态模型性能下降的原因不是因为过拟合？这里作者观察到 dropout 和 mid-concat（与 late-concat 相比，参数减少了 37%）比 lateconcat 提高了 1.5% 和 1.4%，这证实了后期concat 的过度拟合问题。<font color='pink'>（那么另外两种方法：pretrain和early-stop为什么不起作用呢。这两种没有改变网络参数量？）</font></p>
-<h6 id="dropout"><a href="#dropout" class="headerlink" title="dropout"></a>dropout</h6><p>一个感受：比如为什么在2022年阅读一篇2020年的文章时，会被其中引用的2018年的文章所吸引，2018年的那篇被引用的文章大概率质量比较高。这是因为经过了时间的烤盐啊……</p>
-]]></content>
-      <categories>
-        <category>论文阅读</category>
-      </categories>
   </entry>
 </search>
