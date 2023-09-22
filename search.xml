@@ -20,15 +20,6 @@
 ]]></content>
   </entry>
   <entry>
-    <title>hexo插入图片</title>
-    <url>/2023/03/22/hexo%E6%8F%92%E5%85%A5%E5%9B%BE%E7%89%87/</url>
-    <content><![CDATA[<h5 id="hexo博客插入图片"><a href="#hexo博客插入图片" class="headerlink" title="hexo博客插入图片"></a>hexo博客插入图片</h5><p><a href="https://blog.csdn.net/m0_43401436/article/details/107191688">hexo博客中插入图片失败——解决思路及个人最终解决办法_hexo 出现重复路径_金牛大王的博客-CSDN博客</a></p>
-]]></content>
-      <tags>
-        <tag>hexo博客帮助文档</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>.sh脚本编写</title>
     <url>/2023/03/22/sh%E8%84%9A%E6%9C%AC%E7%BC%96%E5%86%99/</url>
     <content><![CDATA[<p>linux下用.sh文件执行python命令</p>
@@ -63,6 +54,15 @@
       </tags>
   </entry>
   <entry>
+    <title>hexo插入图片</title>
+    <url>/2023/03/22/hexo%E6%8F%92%E5%85%A5%E5%9B%BE%E7%89%87/</url>
+    <content><![CDATA[<h5 id="hexo博客插入图片"><a href="#hexo博客插入图片" class="headerlink" title="hexo博客插入图片"></a>hexo博客插入图片</h5><p><a href="https://blog.csdn.net/m0_43401436/article/details/107191688">hexo博客中插入图片失败——解决思路及个人最终解决办法_hexo 出现重复路径_金牛大王的博客-CSDN博客</a></p>
+]]></content>
+      <tags>
+        <tag>hexo博客帮助文档</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>多模态学习</title>
     <url>/2022/09/01/%E5%A4%9A%E6%A8%A1%E6%80%81%E5%AD%A6%E4%B9%A0/</url>
     <content><![CDATA[<p>多模态学习：使用机器学习方法对多源异构信息进行挖掘和分析。</p>
@@ -72,11 +72,113 @@
       </tags>
   </entry>
   <entry>
+    <title>【论文阅读】Mind the Gap: Understanding the Modality Gap in Multi-modal Contrastive Representation Learning</title>
+    <url>/2023/09/22/%E3%80%90%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB%E3%80%91Mind-the-Gap-Understanding-the-Modality-Gap-in-Multi-modal-Contrastive-Representation-Learning/</url>
+    <content><![CDATA[<p>Q1：研究的问题是什么？</p>
+<p>提出了模态间的gap现象，以及从数学上证明了contraction mapping(由ReLU引起的收缩映射) 对其的贡献。作者提出下一步的研究的方向是系统地分析gap对下游任务的影响。</p>
+]]></content>
+      <tags>
+        <tag>读论文</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>摘抄录</title>
     <url>/2022/10/04/%E6%91%98%E6%8A%84%E5%BD%95/</url>
     <content><![CDATA[<p>万家墨面没蒿莱，敢有歌吟动地哀。心事浩茫连广宇，于无声处听惊雷。<br>——鲁迅《无题·万家墨面没蒿莱》<br>译文：黎民百姓们像黑瘦的囚徒，流离失所于荒野，哪还敢有慷慨悲歌，引发动地的哀声。我心里想的事很多、很远，连通着广大国土上的人民，所以从表面沉寂中，我能听到革命春雷的萌动。</p>
 <p>​        我们自古以来，就有埋头苦干的人，有拼命硬干的人，有为民请命的人，有舍身求法的人，……虽是等于为帝王将相作家谱的所谓“正史”，也往往掩不住他们的光耀，这就是中国的脊梁。<br>​        这一类的人们，就是现在也何尝少呢？他们有确信，不自欺；他们在前仆后继地战斗，不过一面总在被摧残，被抹杀，消灭于黑暗中，不能为大家所知道罢了。说中国人失掉自信力，用于指一部分人则可，倘若加于全体，那简直是污蔑。<br>​        要论中国人，必须不被搽在表面的自欺欺人的脂粉所诓骗，却看看他的筋骨和脊梁。自信力的有无，状元宰相的文章是不足为据的，要自己去看地底下。<br>——鲁迅《中国人失掉自信力了吗？》</p>
 ]]></content>
+  </entry>
+  <entry>
+    <title></title>
+    <url>/2023/04/17/%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0-Pytorch%20%E4%B9%8B%E6%A2%AF%E5%BA%A6%E5%9B%9E%E4%BC%A0%20%E5%AE%9E%E7%8E%B0%E7%BB%86%E8%8A%82/</url>
+    <content><![CDATA[<p>Pytorch 之梯度回传 实现细节</p>
+<h5 id="首先厘清几个重要概念："><a href="#首先厘清几个重要概念：" class="headerlink" title="首先厘清几个重要概念："></a>首先厘清几个重要概念：</h5><ul>
+<li><p>criterion </p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">criterion = nn.CrossEntropyLoss()   <span class="comment"># 交叉熵损失函数</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>model</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">model = AVClassifier()  <span class="comment"># 创建我们需要的模型  AVClassifier继承nn.Module类</span></span><br><span class="line">model.apply(weight_init)   <span class="comment"># 对模型的参数做初始化</span></span><br><span class="line">model.train()   <span class="comment"># 将模型调到训练状态   # 还有对应的测试状态：model.eval()</span></span><br><span class="line">......</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>optimizer</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">optimizer = optim.SGD(model.parameters(), lr=<span class="number">1e-3</span>, momentum=<span class="number">0.9</span>, weight_decay=<span class="number">1e-4</span>)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>loss</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">out = model(imagedata, textdata)</span><br><span class="line">loss = criterion(out, label)   # loss是计算得到的损失值</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h5 id="一般传统的回传步骤如下："><a href="#一般传统的回传步骤如下：" class="headerlink" title="一般传统的回传步骤如下："></a>一般传统的回传步骤如下：</h5><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 首先定义好了criterion、model、optimizer</span></span><br><span class="line">model = AVClassifier() </span><br><span class="line">model.apply(weight_init)</span><br><span class="line">model.train()</span><br><span class="line">optimizer = optim.SGD(model.parameters(), lr=<span class="number">1e-3</span>, momentum=<span class="number">0.9</span>, weight_decay=<span class="number">1e-4</span>)</span><br><span class="line">criterion = nn.CrossEntropyLoss()</span><br><span class="line"><span class="comment"># 在一个epoch里面，开始按照batchsize取出训练集中的数据batch</span></span><br><span class="line"><span class="keyword">for</span> step, (img, text, label) <span class="keyword">in</span> <span class="built_in">enumerate</span>(dataloader):</span><br><span class="line">	optimizer.zero_grad()   <span class="comment"># 清除过往的所有梯度值，置为零</span></span><br><span class="line">    output = model(img, text)   <span class="comment"># 前向传播求出预测值</span></span><br><span class="line">    loss = criterion(output, label)  <span class="comment"># 根据预测值和标签计算相应的损失函数值</span></span><br><span class="line">    loss.backward()   <span class="comment"># 根据链式法则求梯度</span></span><br><span class="line">    optimizer.step()  <span class="comment"># 根据SGD算法以及计算得到的梯度更新模型的所有参数</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="现在我们遇到的问题是："><a href="#现在我们遇到的问题是：" class="headerlink" title="现在我们遇到的问题是："></a>现在我们遇到的问题是：</h5><p>我们使用pytorch写好了基本的model框架，现在我们想加入一个AF模块。</p>
+<p>原来的model基本架构如下：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">AVClassifier</span>(nn.Module):</span><br><span class="line">	<span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self</span>):</span><br><span class="line">		self.img_encoder = ImgEncoder()</span><br><span class="line">        self.text_encoder = TextEncoder()</span><br><span class="line">        self.fusion_module = ConcatFusion()</span><br><span class="line">        self.Classifier = nn.Sequential(</span><br><span class="line">            nn.Linear(<span class="number">6</span>, <span class="number">6</span>)</span><br><span class="line">            nn.softmax(dim=<span class="number">1</span>)</span><br><span class="line">        )</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">forward</span>(<span class="params">self, img, text</span>):</span><br><span class="line">        img_feature = self.img_encoder(img)</span><br><span class="line">        text_feature = self.text_encoder(text)</span><br><span class="line">        out = self.fusion_module(img_feature, text_feature)</span><br><span class="line">        output = self.classifier(out)</span><br><span class="line">        <span class="keyword">return</span> output</span><br></pre></td></tr></table></figure>
+
+<p>现在我想在Encoder和fusion_module中间增加一个AF模块，AF模块主要实现的功能是捕捉特征之间的关联信息，分两步走：第一步做feature boosting，第二步将计算一个关系融合矩阵，再将feature boosting得到的特征乘以特定的系数，并与关系融合矩阵做矩阵乘法，得到AF加强后的特征。我们希望将通过AF的模块再放入融合模块，继续后续的步骤。</p>
+<p>我是这样写的：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">AVClassifier</span>(nn.Module):</span><br><span class="line">	<span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self</span>):</span><br><span class="line">		self.img_encoder = ImgEncoder()</span><br><span class="line">        self.text_encoder = TextEncoder()</span><br><span class="line">        self.fusion_module = ConcatFusion()</span><br><span class="line">        self.Classifier = nn.Sequential(</span><br><span class="line">            nn.Linear(<span class="number">6</span>, <span class="number">6</span>)</span><br><span class="line">            nn.softmax(dim=<span class="number">1</span>)</span><br><span class="line">        )</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">forward</span>(<span class="params">self, img, text</span>):</span><br><span class="line">        img_feature = self.img_encoder(img)</span><br><span class="line">        text_feature = self.text_encoder(text)</span><br><span class="line">        <span class="comment"># AF模块的功能我用函数getX_coupled_feas()来实现</span></span><br><span class="line">        img_feature_af = getX_coupled_feas(img_feature)</span><br><span class="line">        text_feature_af = getX_coupled_feas(text_feature)</span><br><span class="line">        out = self.fusion_module(img_feature, text_feature)</span><br><span class="line">        output = self.classifier(out)</span><br><span class="line">        <span class="keyword">return</span> output</span><br></pre></td></tr></table></figure>
+
+<p>这样写的结果是，通过debug调试，我们发现由于增加了AF函数，在反向传播计算梯度时出现了失败。在AF模块后面的融合模块和分类头表现为参数(weight)的梯度值(grad)始终为0，而在AF模块前的两个Encoder模块的模型参数的梯度值始终为None.</p>
+<p>关系融合矩阵的每个元素a(i, j)是第i维特征和第j维特征计算皮尔逊相关系数得到的。关系融合矩阵是一个矩阵，并且与特征进行矩阵乘法，那么它从本质意义上来说就是一种映射。但是它的权重(weight)不是通过模型”学习”到的，而是基于一种规则(基于相关系数进行计算)得到的，它的权重不需要根据梯度回传来更新。但是梯度的计算不能到这里就断掉了，因为它前面的encoder模块参数还需要根据梯度来更新啊~这怎么办呢？</p>
+<p>一个首先要回答的问题是：增加了AF模块后，根据链式法则，梯度要如何计算？</p>
+<p>AF模块：一个进行intra-modal fusion的模块。AF的输入是encoder得到的特征，AF的输出是将要进入fusion_module的特征。</p>
+<h5 id="反向传播"><a href="#反向传播" class="headerlink" title="反向传播"></a>反向传播</h5><p>反向传播（backward propagation）指的是计算神经网络参数梯度的方法。</p>
+<p>PS：机器学习中常见的最优化方法：除了梯度下降法之外，还有牛顿法、拟牛顿法、共轭梯度法、启发式优化方法、拉格朗日乘数法。还有一些无梯度神经网络优化方法，比如粒子群优化、替代优化、模拟退火算法。</p>
+]]></content>
+  </entry>
+  <entry>
+    <title>基于城市综合环境因子的多维轨道交通客流预测模型</title>
+    <url>/2023/05/30/%E5%9F%BA%E4%BA%8E%E5%9F%8E%E5%B8%82%E7%BB%BC%E5%90%88%E7%8E%AF%E5%A2%83%E5%9B%A0%E5%AD%90%E7%9A%84%E5%A4%9A%E7%BB%B4%E8%BD%A8%E9%81%93%E4%BA%A4%E9%80%9A%E5%AE%A2%E6%B5%81%E9%A2%84%E6%B5%8B%E6%A8%A1%E5%9E%8B/</url>
+    <content><![CDATA[<ol>
+<li><p>客流预测的意义：客流是合理规划运输网络、配置客运站点设施、配备旅客运输工具和编制其运行作业计划的基本依据。</p>
+</li>
+<li><p>名词解释</p>
+</li>
+</ol>
+<p>1）客流是一定时间内某一运输路线路段上一定方向的旅客流动，包含流量、流向和流时等要素。</p>
+<p>2）客流流量：旅客流动的数量 </p>
+<p>3）流向：流动的方向</p>
+<p>4）流时：指流量的时间分布</p>
+<ol start="3">
+<li>参考论文</li>
+</ol>
+<p>《基于乘积ARIMA模型的城市轨道交通进出站客流量预测》</p>
+<p>《城市轨道交通客流预测与分析方法》</p>
+<p>《城市轨道交通网络网络化客流特征及成长规律—基于京沪穗深城市轨道交通网络客流数据分析》 </p>
+<ol start="4">
+<li>数据集</li>
+</ol>
+<p>客流量数据.csv——训练集，包含station&#x2F;time&#x2F;inbound_number&#x2F;outbound_number等数据，但格式不太一样，需要预处理，有23.36w条数据。</p>
+<p>test.csv——测试集，包含station&#x2F;time&#x2F;inbound_number&#x2F;outbound_number等数据，有600+条数据。</p>
+<p>车站信息表：各站点的关系数据和位置数据，暂无作用。</p>
+<ol start="5">
+<li>提交结果格式</li>
+</ol>
+<p>预测客流量.csv文件，预测2023&#x2F;4&#x2F;16这一整天的各个时间段的各个站点（A~G）的客流量</p>
+<p>（下方示例）</p>
+<table>
+<thead>
+<tr>
+<th>Station</th>
+<th>Time</th>
+<th>inbound_number</th>
+<th>outbound_number</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>A</td>
+<td>2023&#x2F;4&#x2F;16 6:00</td>
+<td>100</td>
+<td>200</td>
+</tr>
+<tr>
+<td>B</td>
+<td>2023&#x2F;4&#x2F;16 6:00</td>
+<td>200</td>
+<td>150</td>
+</tr>
+</tbody></table>
+]]></content>
+      <tags>
+        <tag>算法竞赛</tag>
+      </tags>
   </entry>
   <entry>
     <title>编程笔记【4.3】</title>
@@ -113,6 +215,20 @@
       <tags>
         <tag>python编程</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>Video类型数据预处理</title>
+    <url>/2023/04/08/%E8%A7%86%E9%A2%91%E6%95%B0%E6%8D%AE%E9%A2%84%E5%A4%84%E7%90%86/</url>
+    <content><![CDATA[<h6 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h6><p>最近做的多模态动作识别任务，是基于Kinetics数据集进行的，需要从原始的视频数据中提取音频模态的数据用于训练。</p>
+<h6 id="基本步骤"><a href="#基本步骤" class="headerlink" title="基本步骤"></a>基本步骤</h6><p>提取audio数据，最后转化为音谱图spectrogram放入卷积神经网络用于训练。</p>
+<h6 id="实现代码"><a href="#实现代码" class="headerlink" title="实现代码"></a>实现代码</h6><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 在KSDataset上的定义，这里是定义的__getitem__函数，后续用dataloader取数据</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__getitem__</span>(<span class="params">self, idx</span>):</span><br><span class="line">        <span class="comment"># audio</span></span><br><span class="line">        sample, rate = librosa.load(self.audio[idx], sr=<span class="number">35400</span>, mono=<span class="literal">True</span>)</span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">len</span>(sample) == <span class="number">0</span>:</span><br><span class="line">            sample = np.array([<span class="number">0</span>])</span><br><span class="line">        <span class="keyword">while</span> <span class="built_in">len</span>(sample) / rate &lt; <span class="number">10.</span>:</span><br><span class="line">            sample = np.tile(sample, <span class="number">2</span>)</span><br><span class="line">        start_point = <span class="number">0</span></span><br><span class="line">        new_sample = sample[start_point:start_point + rate * <span class="number">10</span>]</span><br><span class="line">        new_sample[new_sample &gt; <span class="number">1.</span>] = <span class="number">1.</span></span><br><span class="line">        new_sample[new_sample &lt; -<span class="number">1.</span>] = -<span class="number">1.</span></span><br><span class="line">        spectrogram = librosa.stft(new_sample, n_fft=<span class="number">512</span>, hop_length=<span class="number">353</span>)</span><br><span class="line">        spectrogram = np.log(np.<span class="built_in">abs</span>(spectrogram) + <span class="number">1e-7</span>)</span><br><span class="line">        spectrogram = np.resize(spectrogram, (<span class="number">224</span>, <span class="number">224</span>))</span><br><span class="line">        spectrogram = torch.from_numpy(spectrogram)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line">代码解析：</span><br><span class="line">sample, rate = librosa.load(self.audio[idx], sr=35400, mono=True)</span><br><span class="line">函数使用：sample, rate = librosa.load(path, sr, mono)</span><br><span class="line">函数参数：path-音频路径</span><br><span class="line">sr-采样率，默认是22050</span><br><span class="line">mono-设置为True是单通道，否则是双通道</span><br><span class="line">函数返回值：</span><br><span class="line">sample-音频的信号值，类型是ndarray</span><br><span class="line">rate-采样率</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">spectrogram = librosa.stft(new_sample, n_fft=512, hop_length=353)</span><br><span class="line">函数使用：</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>数据预处理</category>
+      </categories>
   </entry>
   <entry>
     <title>考虑数据不均衡问题的多模态分类</title>
@@ -155,6 +271,63 @@
 ]]></content>
       <categories>
         <category>多模态融合</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>论文阅读《Learning Modality-Specific Representations with Self-Supervised Multi-Task Learning for Multimodal Sentiment Analysis》</title>
+    <url>/2023/04/05/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-Self-MM/</url>
+    <content><![CDATA[<h5 id="2-related-work"><a href="#2-related-work" class="headerlink" title="2. related work"></a>2. related work</h5><h6 id="2-1-Multimodal-Sentiment-Analysis-MSA"><a href="#2-1-Multimodal-Sentiment-Analysis-MSA" class="headerlink" title="2.1 Multimodal Sentiment Analysis (MSA)"></a>2.1 Multimodal Sentiment Analysis (MSA)</h6><p>MSA 已经成为整合语言和非语言信息（如视觉和声学）的重要研究课题。以前的研究人员主要关注表示学习方法和多模态融合方法。</p>
+<table>
+<thead>
+<tr>
+<th>方法类别</th>
+<th>论文</th>
+<th>基本思路</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>表示学习方法</td>
+<td>Words can shift: Dynamically adjusting word representations using nonverbal behaviors.<br />AAAI2019</td>
+<td>construct a recurrent attended variation embedding network to generate multimodal shifting<br />构建了一个循环参与的变化嵌入网络来生成多模态移动。</td>
+</tr>
+<tr>
+<td>表示学习方法</td>
+<td>MISA: Modality-Invariant and -Specific Representations for Multimodal Sentiment Analysis<br />ACMMM 2020</td>
+<td>present modality-invariant and modality-specific representations for representation learning in multimodal.<br />提出了多模态表示学习的模态不变和模态特定表示</td>
+</tr>
+<tr>
+<td>多模态融合-早期融合<br />（早期融合方法通常使用精细的注意机制进行跨模态融合）</td>
+<td>Memory fusion network for multi-view sequential learning.<br />AAAI 2018</td>
+<td>design a memory fusion network for cross-view interactions.<br />设计了一种用于跨视图交互的内存融合网络</td>
+</tr>
+<tr>
+<td>多模态融合-早期融合</td>
+<td>Multimodal transformer for unaligned multimodal language sequences.<br />ACL 2019</td>
+<td>propose cross-modal transformers, which learn the cross-modal attention to reinforce a target modality.<br />提出了跨模态变压器，它学习跨模态注意来加强目标模态。</td>
+</tr>
+<tr>
+<td>多模态融合-后期融合<br />(后期融合方法首先学习模态内表示，最后进行多模态融合)</td>
+<td>Tensor fusion network for multimodal sentiment analysis.<br />EMNLP 2017</td>
+<td>use a tensor fusion network that obtains tensor representation by computing the outer product between unimodal representations<br />使用张量融合网络，通过计算单峰表示之间的外积来获得张量表示</td>
+</tr>
+<tr>
+<td>多模态融合-后期融合</td>
+<td>Efficient Low-rank Multimodal Fusion With Modality-Specific Factors.<br />ACL 2018</td>
+<td>propose a lowrank multimodal fusion method to decrease the computational complexity of tensor-based methods.<br />提出了一种低秩多模态融合方法来降低基于张量的方法的计算复杂度</td>
+</tr>
+</tbody></table>
+<p>这篇文章主要研究基于后期融合结构的表示学习。与以往研究不同，本文通过自监督策略联合学习单模态和多模态任务。主方法从多模态任务中学习相似性信息，并从单模态任务中学习差异性信息。</p>
+<h5 id="2-3-Multi-Task-learning"><a href="#2-3-Multi-Task-learning" class="headerlink" title="2.3 Multi-Task learning"></a>2.3 Multi-Task learning</h5><p>多任务学习旨在通过利用不同任务中包含的知识来提高多个相关任务的泛化性能（多任务综述[[1]](#paper 1)）。与单任务学习相比，训练阶段多任务学习有两个主要挑战。第一个是如何共享网络参数，包括<strong>硬共享和软共享方法</strong>。第二个是如何平衡不同任务的学习过程。使用多任务学习来解决MSA问题的最近工作有[[2]](#paper 2)</p>
+<p>在本文的工作中，引入了单模态子任务来帮助特定于模态的表示学习。本文采用了硬共享策略，设计了一种权重调整方法来解决如何平衡的问题。</p>
+<h5 id="3-Methodology"><a href="#3-Methodology" class="headerlink" title="3. Methodology"></a>3. Methodology</h5><p> 明日计划：</p>
+<p>阅读 SelfMM 论文 + 代码复现在CREMAD上</p>
+<p>MISA  Self-MM CH-SIMS  (MMSA框架)   是同一个实验室的工作</p>
+<p>参考文献：</p>
+<p><a name="paper 1">[1]</a> A Survey on Multi-Task Learning. </p>
+<p>[2] CH-SIMS: A Chinese Multimodal Sentiment Analysis Dataset with Fine-grained Annotation of Modality. </p>
+]]></content>
+      <categories>
+        <category>论文阅读</category>
       </categories>
   </entry>
   <entry>
@@ -206,6 +379,11 @@
       <categories>
         <category>论文阅读</category>
       </categories>
+  </entry>
+  <entry>
+    <title>[论文阅读]Mind the Gap:Understanding the Modality Gap in</title>
+    <url>/2023/09/22/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-Mind-the-Gap-Understanding-the-Modality-Gap-in/</url>
+    <content><![CDATA[]]></content>
   </entry>
   <entry>
     <title>预推免面试准备</title>
