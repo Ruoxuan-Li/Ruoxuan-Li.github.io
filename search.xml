@@ -63,67 +63,6 @@
       </tags>
   </entry>
   <entry>
-    <title>多模态学习</title>
-    <url>/2022/09/01/%E5%A4%9A%E6%A8%A1%E6%80%81%E5%AD%A6%E4%B9%A0/</url>
-    <content><![CDATA[<p>多模态学习：使用机器学习方法对多源异构信息进行挖掘和分析。</p>
-]]></content>
-      <tags>
-        <tag>多模态学习</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>【论文阅读】Mind the Gap: Understanding the Modality Gap in Multi-modal Contrastive Representation Learning</title>
-    <url>/2023/09/22/%E3%80%90%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB%E3%80%91Mind-the-Gap-Understanding-the-Modality-Gap-in-Multi-modal-Contrastive-Representation-Learning/</url>
-    <content><![CDATA[<p>Q1：研究的问题是什么？</p>
-<p>提出了模态间的gap现象，以及从数学上证明了contraction mapping(由ReLU引起的收缩映射) 对其的贡献。作者提出下一步的研究的方向是系统地分析gap对下游任务的影响。</p>
-]]></content>
-      <tags>
-        <tag>读论文</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>摘抄录</title>
-    <url>/2022/10/04/%E6%91%98%E6%8A%84%E5%BD%95/</url>
-    <content><![CDATA[<p>万家墨面没蒿莱，敢有歌吟动地哀。心事浩茫连广宇，于无声处听惊雷。<br>——鲁迅《无题·万家墨面没蒿莱》<br>译文：黎民百姓们像黑瘦的囚徒，流离失所于荒野，哪还敢有慷慨悲歌，引发动地的哀声。我心里想的事很多、很远，连通着广大国土上的人民，所以从表面沉寂中，我能听到革命春雷的萌动。</p>
-<p>​        我们自古以来，就有埋头苦干的人，有拼命硬干的人，有为民请命的人，有舍身求法的人，……虽是等于为帝王将相作家谱的所谓“正史”，也往往掩不住他们的光耀，这就是中国的脊梁。<br>​        这一类的人们，就是现在也何尝少呢？他们有确信，不自欺；他们在前仆后继地战斗，不过一面总在被摧残，被抹杀，消灭于黑暗中，不能为大家所知道罢了。说中国人失掉自信力，用于指一部分人则可，倘若加于全体，那简直是污蔑。<br>​        要论中国人，必须不被搽在表面的自欺欺人的脂粉所诓骗，却看看他的筋骨和脊梁。自信力的有无，状元宰相的文章是不足为据的，要自己去看地底下。<br>——鲁迅《中国人失掉自信力了吗？》</p>
-]]></content>
-  </entry>
-  <entry>
-    <title></title>
-    <url>/2023/04/17/%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0-Pytorch%20%E4%B9%8B%E6%A2%AF%E5%BA%A6%E5%9B%9E%E4%BC%A0%20%E5%AE%9E%E7%8E%B0%E7%BB%86%E8%8A%82/</url>
-    <content><![CDATA[<p>Pytorch 之梯度回传 实现细节</p>
-<h5 id="首先厘清几个重要概念："><a href="#首先厘清几个重要概念：" class="headerlink" title="首先厘清几个重要概念："></a>首先厘清几个重要概念：</h5><ul>
-<li><p>criterion </p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">criterion = nn.CrossEntropyLoss()   <span class="comment"># 交叉熵损失函数</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>model</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">model = AVClassifier()  <span class="comment"># 创建我们需要的模型  AVClassifier继承nn.Module类</span></span><br><span class="line">model.apply(weight_init)   <span class="comment"># 对模型的参数做初始化</span></span><br><span class="line">model.train()   <span class="comment"># 将模型调到训练状态   # 还有对应的测试状态：model.eval()</span></span><br><span class="line">......</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>optimizer</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">optimizer = optim.SGD(model.parameters(), lr=<span class="number">1e-3</span>, momentum=<span class="number">0.9</span>, weight_decay=<span class="number">1e-4</span>)</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>loss</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">out = model(imagedata, textdata)</span><br><span class="line">loss = criterion(out, label)   # loss是计算得到的损失值</span><br></pre></td></tr></table></figure></li>
-</ul>
-<h5 id="一般传统的回传步骤如下："><a href="#一般传统的回传步骤如下：" class="headerlink" title="一般传统的回传步骤如下："></a>一般传统的回传步骤如下：</h5><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 首先定义好了criterion、model、optimizer</span></span><br><span class="line">model = AVClassifier() </span><br><span class="line">model.apply(weight_init)</span><br><span class="line">model.train()</span><br><span class="line">optimizer = optim.SGD(model.parameters(), lr=<span class="number">1e-3</span>, momentum=<span class="number">0.9</span>, weight_decay=<span class="number">1e-4</span>)</span><br><span class="line">criterion = nn.CrossEntropyLoss()</span><br><span class="line"><span class="comment"># 在一个epoch里面，开始按照batchsize取出训练集中的数据batch</span></span><br><span class="line"><span class="keyword">for</span> step, (img, text, label) <span class="keyword">in</span> <span class="built_in">enumerate</span>(dataloader):</span><br><span class="line">	optimizer.zero_grad()   <span class="comment"># 清除过往的所有梯度值，置为零</span></span><br><span class="line">    output = model(img, text)   <span class="comment"># 前向传播求出预测值</span></span><br><span class="line">    loss = criterion(output, label)  <span class="comment"># 根据预测值和标签计算相应的损失函数值</span></span><br><span class="line">    loss.backward()   <span class="comment"># 根据链式法则求梯度</span></span><br><span class="line">    optimizer.step()  <span class="comment"># 根据SGD算法以及计算得到的梯度更新模型的所有参数</span></span><br></pre></td></tr></table></figure>
-
-<h5 id="现在我们遇到的问题是："><a href="#现在我们遇到的问题是：" class="headerlink" title="现在我们遇到的问题是："></a>现在我们遇到的问题是：</h5><p>我们使用pytorch写好了基本的model框架，现在我们想加入一个AF模块。</p>
-<p>原来的model基本架构如下：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">AVClassifier</span>(nn.Module):</span><br><span class="line">	<span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self</span>):</span><br><span class="line">		self.img_encoder = ImgEncoder()</span><br><span class="line">        self.text_encoder = TextEncoder()</span><br><span class="line">        self.fusion_module = ConcatFusion()</span><br><span class="line">        self.Classifier = nn.Sequential(</span><br><span class="line">            nn.Linear(<span class="number">6</span>, <span class="number">6</span>)</span><br><span class="line">            nn.softmax(dim=<span class="number">1</span>)</span><br><span class="line">        )</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">forward</span>(<span class="params">self, img, text</span>):</span><br><span class="line">        img_feature = self.img_encoder(img)</span><br><span class="line">        text_feature = self.text_encoder(text)</span><br><span class="line">        out = self.fusion_module(img_feature, text_feature)</span><br><span class="line">        output = self.classifier(out)</span><br><span class="line">        <span class="keyword">return</span> output</span><br></pre></td></tr></table></figure>
-
-<p>现在我想在Encoder和fusion_module中间增加一个AF模块，AF模块主要实现的功能是捕捉特征之间的关联信息，分两步走：第一步做feature boosting，第二步将计算一个关系融合矩阵，再将feature boosting得到的特征乘以特定的系数，并与关系融合矩阵做矩阵乘法，得到AF加强后的特征。我们希望将通过AF的模块再放入融合模块，继续后续的步骤。</p>
-<p>我是这样写的：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">AVClassifier</span>(nn.Module):</span><br><span class="line">	<span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self</span>):</span><br><span class="line">		self.img_encoder = ImgEncoder()</span><br><span class="line">        self.text_encoder = TextEncoder()</span><br><span class="line">        self.fusion_module = ConcatFusion()</span><br><span class="line">        self.Classifier = nn.Sequential(</span><br><span class="line">            nn.Linear(<span class="number">6</span>, <span class="number">6</span>)</span><br><span class="line">            nn.softmax(dim=<span class="number">1</span>)</span><br><span class="line">        )</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">forward</span>(<span class="params">self, img, text</span>):</span><br><span class="line">        img_feature = self.img_encoder(img)</span><br><span class="line">        text_feature = self.text_encoder(text)</span><br><span class="line">        <span class="comment"># AF模块的功能我用函数getX_coupled_feas()来实现</span></span><br><span class="line">        img_feature_af = getX_coupled_feas(img_feature)</span><br><span class="line">        text_feature_af = getX_coupled_feas(text_feature)</span><br><span class="line">        out = self.fusion_module(img_feature, text_feature)</span><br><span class="line">        output = self.classifier(out)</span><br><span class="line">        <span class="keyword">return</span> output</span><br></pre></td></tr></table></figure>
-
-<p>这样写的结果是，通过debug调试，我们发现由于增加了AF函数，在反向传播计算梯度时出现了失败。在AF模块后面的融合模块和分类头表现为参数(weight)的梯度值(grad)始终为0，而在AF模块前的两个Encoder模块的模型参数的梯度值始终为None.</p>
-<p>关系融合矩阵的每个元素a(i, j)是第i维特征和第j维特征计算皮尔逊相关系数得到的。关系融合矩阵是一个矩阵，并且与特征进行矩阵乘法，那么它从本质意义上来说就是一种映射。但是它的权重(weight)不是通过模型”学习”到的，而是基于一种规则(基于相关系数进行计算)得到的，它的权重不需要根据梯度回传来更新。但是梯度的计算不能到这里就断掉了，因为它前面的encoder模块参数还需要根据梯度来更新啊~这怎么办呢？</p>
-<p>一个首先要回答的问题是：增加了AF模块后，根据链式法则，梯度要如何计算？</p>
-<p>AF模块：一个进行intra-modal fusion的模块。AF的输入是encoder得到的特征，AF的输出是将要进入fusion_module的特征。</p>
-<h5 id="反向传播"><a href="#反向传播" class="headerlink" title="反向传播"></a>反向传播</h5><p>反向传播（backward propagation）指的是计算神经网络参数梯度的方法。</p>
-<p>PS：机器学习中常见的最优化方法：除了梯度下降法之外，还有牛顿法、拟牛顿法、共轭梯度法、启发式优化方法、拉格朗日乘数法。还有一些无梯度神经网络优化方法，比如粒子群优化、替代优化、模拟退火算法。</p>
-]]></content>
-  </entry>
-  <entry>
     <title>基于城市综合环境因子的多维轨道交通客流预测模型</title>
     <url>/2023/05/30/%E5%9F%BA%E4%BA%8E%E5%9F%8E%E5%B8%82%E7%BB%BC%E5%90%88%E7%8E%AF%E5%A2%83%E5%9B%A0%E5%AD%90%E7%9A%84%E5%A4%9A%E7%BB%B4%E8%BD%A8%E9%81%93%E4%BA%A4%E9%80%9A%E5%AE%A2%E6%B5%81%E9%A2%84%E6%B5%8B%E6%A8%A1%E5%9E%8B/</url>
     <content><![CDATA[<ol>
@@ -181,6 +120,60 @@
       </tags>
   </entry>
   <entry>
+    <title>多模态学习</title>
+    <url>/2022/09/01/%E5%A4%9A%E6%A8%A1%E6%80%81%E5%AD%A6%E4%B9%A0/</url>
+    <content><![CDATA[<p>多模态学习：使用机器学习方法对多源异构信息进行挖掘和分析。</p>
+]]></content>
+      <tags>
+        <tag>多模态学习</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>【论文阅读】Mind the Gap: Understanding the Modality Gap in Multi-modal Contrastive Representation Learning</title>
+    <url>/2023/09/22/%E3%80%90%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB%E3%80%91Mind-the-Gap-Understanding-the-Modality-Gap-in-Multi-modal-Contrastive-Representation-Learning/</url>
+    <content><![CDATA[<p>Q1：研究的问题是什么？</p>
+<p>提出了模态间的gap现象，以及从数学上证明了contraction mapping(由ReLU引起的收缩映射) 对其的贡献。作者提出下一步的研究的方向是系统地分析gap对下游任务的影响。</p>
+]]></content>
+      <categories>
+        <category>论文阅读</category>
+      </categories>
+  </entry>
+  <entry>
+    <title></title>
+    <url>/2023/04/17/%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0-Pytorch%20%E4%B9%8B%E6%A2%AF%E5%BA%A6%E5%9B%9E%E4%BC%A0%20%E5%AE%9E%E7%8E%B0%E7%BB%86%E8%8A%82/</url>
+    <content><![CDATA[<p>Pytorch 之梯度回传 实现细节</p>
+<h5 id="首先厘清几个重要概念："><a href="#首先厘清几个重要概念：" class="headerlink" title="首先厘清几个重要概念："></a>首先厘清几个重要概念：</h5><ul>
+<li><p>criterion </p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">criterion = nn.CrossEntropyLoss()   <span class="comment"># 交叉熵损失函数</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>model</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">model = AVClassifier()  <span class="comment"># 创建我们需要的模型  AVClassifier继承nn.Module类</span></span><br><span class="line">model.apply(weight_init)   <span class="comment"># 对模型的参数做初始化</span></span><br><span class="line">model.train()   <span class="comment"># 将模型调到训练状态   # 还有对应的测试状态：model.eval()</span></span><br><span class="line">......</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>optimizer</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">optimizer = optim.SGD(model.parameters(), lr=<span class="number">1e-3</span>, momentum=<span class="number">0.9</span>, weight_decay=<span class="number">1e-4</span>)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>loss</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">out = model(imagedata, textdata)</span><br><span class="line">loss = criterion(out, label)   # loss是计算得到的损失值</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h5 id="一般传统的回传步骤如下："><a href="#一般传统的回传步骤如下：" class="headerlink" title="一般传统的回传步骤如下："></a>一般传统的回传步骤如下：</h5><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 首先定义好了criterion、model、optimizer</span></span><br><span class="line">model = AVClassifier() </span><br><span class="line">model.apply(weight_init)</span><br><span class="line">model.train()</span><br><span class="line">optimizer = optim.SGD(model.parameters(), lr=<span class="number">1e-3</span>, momentum=<span class="number">0.9</span>, weight_decay=<span class="number">1e-4</span>)</span><br><span class="line">criterion = nn.CrossEntropyLoss()</span><br><span class="line"><span class="comment"># 在一个epoch里面，开始按照batchsize取出训练集中的数据batch</span></span><br><span class="line"><span class="keyword">for</span> step, (img, text, label) <span class="keyword">in</span> <span class="built_in">enumerate</span>(dataloader):</span><br><span class="line">	optimizer.zero_grad()   <span class="comment"># 清除过往的所有梯度值，置为零</span></span><br><span class="line">    output = model(img, text)   <span class="comment"># 前向传播求出预测值</span></span><br><span class="line">    loss = criterion(output, label)  <span class="comment"># 根据预测值和标签计算相应的损失函数值</span></span><br><span class="line">    loss.backward()   <span class="comment"># 根据链式法则求梯度</span></span><br><span class="line">    optimizer.step()  <span class="comment"># 根据SGD算法以及计算得到的梯度更新模型的所有参数</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="现在我们遇到的问题是："><a href="#现在我们遇到的问题是：" class="headerlink" title="现在我们遇到的问题是："></a>现在我们遇到的问题是：</h5><p>我们使用pytorch写好了基本的model框架，现在我们想加入一个AF模块。</p>
+<p>原来的model基本架构如下：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">AVClassifier</span>(nn.Module):</span><br><span class="line">	<span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self</span>):</span><br><span class="line">		self.img_encoder = ImgEncoder()</span><br><span class="line">        self.text_encoder = TextEncoder()</span><br><span class="line">        self.fusion_module = ConcatFusion()</span><br><span class="line">        self.Classifier = nn.Sequential(</span><br><span class="line">            nn.Linear(<span class="number">6</span>, <span class="number">6</span>)</span><br><span class="line">            nn.softmax(dim=<span class="number">1</span>)</span><br><span class="line">        )</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">forward</span>(<span class="params">self, img, text</span>):</span><br><span class="line">        img_feature = self.img_encoder(img)</span><br><span class="line">        text_feature = self.text_encoder(text)</span><br><span class="line">        out = self.fusion_module(img_feature, text_feature)</span><br><span class="line">        output = self.classifier(out)</span><br><span class="line">        <span class="keyword">return</span> output</span><br></pre></td></tr></table></figure>
+
+<p>现在我想在Encoder和fusion_module中间增加一个AF模块，AF模块主要实现的功能是捕捉特征之间的关联信息，分两步走：第一步做feature boosting，第二步将计算一个关系融合矩阵，再将feature boosting得到的特征乘以特定的系数，并与关系融合矩阵做矩阵乘法，得到AF加强后的特征。我们希望将通过AF的模块再放入融合模块，继续后续的步骤。</p>
+<p>我是这样写的：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">AVClassifier</span>(nn.Module):</span><br><span class="line">	<span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self</span>):</span><br><span class="line">		self.img_encoder = ImgEncoder()</span><br><span class="line">        self.text_encoder = TextEncoder()</span><br><span class="line">        self.fusion_module = ConcatFusion()</span><br><span class="line">        self.Classifier = nn.Sequential(</span><br><span class="line">            nn.Linear(<span class="number">6</span>, <span class="number">6</span>)</span><br><span class="line">            nn.softmax(dim=<span class="number">1</span>)</span><br><span class="line">        )</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">forward</span>(<span class="params">self, img, text</span>):</span><br><span class="line">        img_feature = self.img_encoder(img)</span><br><span class="line">        text_feature = self.text_encoder(text)</span><br><span class="line">        <span class="comment"># AF模块的功能我用函数getX_coupled_feas()来实现</span></span><br><span class="line">        img_feature_af = getX_coupled_feas(img_feature)</span><br><span class="line">        text_feature_af = getX_coupled_feas(text_feature)</span><br><span class="line">        out = self.fusion_module(img_feature, text_feature)</span><br><span class="line">        output = self.classifier(out)</span><br><span class="line">        <span class="keyword">return</span> output</span><br></pre></td></tr></table></figure>
+
+<p>这样写的结果是，通过debug调试，我们发现由于增加了AF函数，在反向传播计算梯度时出现了失败。在AF模块后面的融合模块和分类头表现为参数(weight)的梯度值(grad)始终为0，而在AF模块前的两个Encoder模块的模型参数的梯度值始终为None.</p>
+<p>关系融合矩阵的每个元素a(i, j)是第i维特征和第j维特征计算皮尔逊相关系数得到的。关系融合矩阵是一个矩阵，并且与特征进行矩阵乘法，那么它从本质意义上来说就是一种映射。但是它的权重(weight)不是通过模型”学习”到的，而是基于一种规则(基于相关系数进行计算)得到的，它的权重不需要根据梯度回传来更新。但是梯度的计算不能到这里就断掉了，因为它前面的encoder模块参数还需要根据梯度来更新啊~这怎么办呢？</p>
+<p>一个首先要回答的问题是：增加了AF模块后，根据链式法则，梯度要如何计算？</p>
+<p>AF模块：一个进行intra-modal fusion的模块。AF的输入是encoder得到的特征，AF的输出是将要进入fusion_module的特征。</p>
+<h5 id="反向传播"><a href="#反向传播" class="headerlink" title="反向传播"></a>反向传播</h5><p>反向传播（backward propagation）指的是计算神经网络参数梯度的方法。</p>
+<p>PS：机器学习中常见的最优化方法：除了梯度下降法之外，还有牛顿法、拟牛顿法、共轭梯度法、启发式优化方法、拉格朗日乘数法。还有一些无梯度神经网络优化方法，比如粒子群优化、替代优化、模拟退火算法。</p>
+]]></content>
+  </entry>
+  <entry>
     <title>编程笔记【4.3】</title>
     <url>/2023/04/03/%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0%E3%80%904-3%E3%80%91/</url>
     <content><![CDATA[<h5 id="Python-之-使用argparse模块编写命令行接口"><a href="#Python-之-使用argparse模块编写命令行接口" class="headerlink" title="Python 之 使用argparse模块编写命令行接口"></a>Python 之 使用argparse模块编写命令行接口</h5><p>argparse模块是Python内置的一个用于命令行选项、参数和子命令解析器的模块。</p>
@@ -202,33 +195,6 @@
       <tags>
         <tag>python编程</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>编程笔记【4.4】</title>
-    <url>/2023/04/04/%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0%E3%80%904.4%E3%80%91/</url>
-    <content><![CDATA[<h6 id="记录一件奇怪的现象"><a href="#记录一件奇怪的现象" class="headerlink" title="记录一件奇怪的现象"></a>记录一件奇怪的现象</h6><p>我先在卡4上跑了两个epoch，并且把ckpt保存了下来。接着在卡7上继续跑，然后nvidia-smi查看GPU使用情况时发现卡4和卡7上都创建了进程，且是同一个进程号。如果kill -9 PID 则进程被杀死，则我的终端显示python程序结束，并显示：process finished with exit code 137 </p>
-<p>请问这是为啥涅？</p>
-<p>好家伙，感觉多GPU保存和加载模型时也会有坑需要注意，虽然我还没遇到过，先挖个坑……</p>
-<h6 id="小结-深度学习代码编写框架"><a href="#小结-深度学习代码编写框架" class="headerlink" title="小结 深度学习代码编写框架"></a>小结 深度学习代码编写框架</h6><figure class="highlight html"><table><tr><td class="code"><pre><span class="line">-项目名</span><br><span class="line">	-ckpt文件夹（存放各种中间数据）</span><br><span class="line">		-数据集1_模型1</span><br><span class="line">			保存JOSN文件——&gt;存放你的一些配置信息,比如优化器、学习率、批处理大小、...</span><br><span class="line">			保存log.txt——&gt;存放你想在中间过程记录的一些信息，比如每轮结束输出一次xx指标</span><br><span class="line">			保存best_model.pth——&gt;以某种指标存放训练过程中的最佳模型数据</span><br><span class="line">			保存lateset_model.pth——&gt;存放最后一个epoch结束后得到的模型数据</span><br><span class="line">		-数据集2_模型1</span><br><span class="line">		-数据集1_模型2</span><br><span class="line">		-数据集2_模型2</span><br><span class="line">		-...</span><br><span class="line">    -datasets文件夹（存放各种数据集类）</span><br><span class="line">    	-Dataset1.py (里面对Dataset1构建类和方法，用于dataloader调用)</span><br><span class="line">    	-Dataset2.py </span><br><span class="line">    	-...</span><br><span class="line">    -models文件夹 （构造你的模型）	(models这部分的编写不是很固定，按照需求编写即可)</span><br><span class="line">    	-Total_model.py (最后的完整模型，输入是样本数据，输出是整体pipeline的输出)</span><br><span class="line">    	-backbone.py (模型一般有backbone)</span><br><span class="line">    	-modules.py (一些你自己特殊构造的模块/机制)</span><br><span class="line">    	-...</span><br><span class="line">    -utils文件夹</span><br><span class="line">    	-helpers.py (写一些其他的辅助功能函数)</span><br><span class="line">    	-...</span><br><span class="line">    -config.py (配置文件,包括配置数据路径、模型类型、学习率、权重衰减率等超参数)</span><br><span class="line">    -main.py (主函数,实现模型的训练和评估等)</span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <tags>
-        <tag>python编程</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Video类型数据预处理</title>
-    <url>/2023/04/08/%E8%A7%86%E9%A2%91%E6%95%B0%E6%8D%AE%E9%A2%84%E5%A4%84%E7%90%86/</url>
-    <content><![CDATA[<h6 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h6><p>最近做的多模态动作识别任务，是基于Kinetics数据集进行的，需要从原始的视频数据中提取音频模态的数据用于训练。</p>
-<h6 id="基本步骤"><a href="#基本步骤" class="headerlink" title="基本步骤"></a>基本步骤</h6><p>提取audio数据，最后转化为音谱图spectrogram放入卷积神经网络用于训练。</p>
-<h6 id="实现代码"><a href="#实现代码" class="headerlink" title="实现代码"></a>实现代码</h6><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 在KSDataset上的定义，这里是定义的__getitem__函数，后续用dataloader取数据</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__getitem__</span>(<span class="params">self, idx</span>):</span><br><span class="line">        <span class="comment"># audio</span></span><br><span class="line">        sample, rate = librosa.load(self.audio[idx], sr=<span class="number">35400</span>, mono=<span class="literal">True</span>)</span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">len</span>(sample) == <span class="number">0</span>:</span><br><span class="line">            sample = np.array([<span class="number">0</span>])</span><br><span class="line">        <span class="keyword">while</span> <span class="built_in">len</span>(sample) / rate &lt; <span class="number">10.</span>:</span><br><span class="line">            sample = np.tile(sample, <span class="number">2</span>)</span><br><span class="line">        start_point = <span class="number">0</span></span><br><span class="line">        new_sample = sample[start_point:start_point + rate * <span class="number">10</span>]</span><br><span class="line">        new_sample[new_sample &gt; <span class="number">1.</span>] = <span class="number">1.</span></span><br><span class="line">        new_sample[new_sample &lt; -<span class="number">1.</span>] = -<span class="number">1.</span></span><br><span class="line">        spectrogram = librosa.stft(new_sample, n_fft=<span class="number">512</span>, hop_length=<span class="number">353</span>)</span><br><span class="line">        spectrogram = np.log(np.<span class="built_in">abs</span>(spectrogram) + <span class="number">1e-7</span>)</span><br><span class="line">        spectrogram = np.resize(spectrogram, (<span class="number">224</span>, <span class="number">224</span>))</span><br><span class="line">        spectrogram = torch.from_numpy(spectrogram)</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line">代码解析：</span><br><span class="line">sample, rate = librosa.load(self.audio[idx], sr=35400, mono=True)</span><br><span class="line">函数使用：sample, rate = librosa.load(path, sr, mono)</span><br><span class="line">函数参数：path-音频路径</span><br><span class="line">sr-采样率，默认是22050</span><br><span class="line">mono-设置为True是单通道，否则是双通道</span><br><span class="line">函数返回值：</span><br><span class="line">sample-音频的信号值，类型是ndarray</span><br><span class="line">rate-采样率</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">spectrogram = librosa.stft(new_sample, n_fft=512, hop_length=353)</span><br><span class="line">函数使用：</span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <categories>
-        <category>数据预处理</category>
-      </categories>
   </entry>
   <entry>
     <title>考虑数据不均衡问题的多模态分类</title>
@@ -271,6 +237,95 @@
 ]]></content>
       <categories>
         <category>多模态融合</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>摘抄录</title>
+    <url>/2022/10/04/%E6%91%98%E6%8A%84%E5%BD%95/</url>
+    <content><![CDATA[<p>万家墨面没蒿莱，敢有歌吟动地哀。心事浩茫连广宇，于无声处听惊雷。<br>——鲁迅《无题·万家墨面没蒿莱》<br>译文：黎民百姓们像黑瘦的囚徒，流离失所于荒野，哪还敢有慷慨悲歌，引发动地的哀声。我心里想的事很多、很远，连通着广大国土上的人民，所以从表面沉寂中，我能听到革命春雷的萌动。</p>
+<p>​        我们自古以来，就有埋头苦干的人，有拼命硬干的人，有为民请命的人，有舍身求法的人，……虽是等于为帝王将相作家谱的所谓“正史”，也往往掩不住他们的光耀，这就是中国的脊梁。<br>​        这一类的人们，就是现在也何尝少呢？他们有确信，不自欺；他们在前仆后继地战斗，不过一面总在被摧残，被抹杀，消灭于黑暗中，不能为大家所知道罢了。说中国人失掉自信力，用于指一部分人则可，倘若加于全体，那简直是污蔑。<br>​        要论中国人，必须不被搽在表面的自欺欺人的脂粉所诓骗，却看看他的筋骨和脊梁。自信力的有无，状元宰相的文章是不足为据的，要自己去看地底下。<br>——鲁迅《中国人失掉自信力了吗？》</p>
+]]></content>
+  </entry>
+  <entry>
+    <title>Video类型数据预处理</title>
+    <url>/2023/04/08/%E8%A7%86%E9%A2%91%E6%95%B0%E6%8D%AE%E9%A2%84%E5%A4%84%E7%90%86/</url>
+    <content><![CDATA[<h6 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h6><p>最近做的多模态动作识别任务，是基于Kinetics数据集进行的，需要从原始的视频数据中提取音频模态的数据用于训练。</p>
+<h6 id="基本步骤"><a href="#基本步骤" class="headerlink" title="基本步骤"></a>基本步骤</h6><p>提取audio数据，最后转化为音谱图spectrogram放入卷积神经网络用于训练。</p>
+<h6 id="实现代码"><a href="#实现代码" class="headerlink" title="实现代码"></a>实现代码</h6><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 在KSDataset上的定义，这里是定义的__getitem__函数，后续用dataloader取数据</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__getitem__</span>(<span class="params">self, idx</span>):</span><br><span class="line">        <span class="comment"># audio</span></span><br><span class="line">        sample, rate = librosa.load(self.audio[idx], sr=<span class="number">35400</span>, mono=<span class="literal">True</span>)</span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">len</span>(sample) == <span class="number">0</span>:</span><br><span class="line">            sample = np.array([<span class="number">0</span>])</span><br><span class="line">        <span class="keyword">while</span> <span class="built_in">len</span>(sample) / rate &lt; <span class="number">10.</span>:</span><br><span class="line">            sample = np.tile(sample, <span class="number">2</span>)</span><br><span class="line">        start_point = <span class="number">0</span></span><br><span class="line">        new_sample = sample[start_point:start_point + rate * <span class="number">10</span>]</span><br><span class="line">        new_sample[new_sample &gt; <span class="number">1.</span>] = <span class="number">1.</span></span><br><span class="line">        new_sample[new_sample &lt; -<span class="number">1.</span>] = -<span class="number">1.</span></span><br><span class="line">        spectrogram = librosa.stft(new_sample, n_fft=<span class="number">512</span>, hop_length=<span class="number">353</span>)</span><br><span class="line">        spectrogram = np.log(np.<span class="built_in">abs</span>(spectrogram) + <span class="number">1e-7</span>)</span><br><span class="line">        spectrogram = np.resize(spectrogram, (<span class="number">224</span>, <span class="number">224</span>))</span><br><span class="line">        spectrogram = torch.from_numpy(spectrogram)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line">代码解析：</span><br><span class="line">sample, rate = librosa.load(self.audio[idx], sr=35400, mono=True)</span><br><span class="line">函数使用：sample, rate = librosa.load(path, sr, mono)</span><br><span class="line">函数参数：path-音频路径</span><br><span class="line">sr-采样率，默认是22050</span><br><span class="line">mono-设置为True是单通道，否则是双通道</span><br><span class="line">函数返回值：</span><br><span class="line">sample-音频的信号值，类型是ndarray</span><br><span class="line">rate-采样率</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">spectrogram = librosa.stft(new_sample, n_fft=512, hop_length=353)</span><br><span class="line">函数使用：</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>数据预处理</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>编程笔记【4.4】</title>
+    <url>/2023/04/04/%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0%E3%80%904.4%E3%80%91/</url>
+    <content><![CDATA[<h6 id="记录一件奇怪的现象"><a href="#记录一件奇怪的现象" class="headerlink" title="记录一件奇怪的现象"></a>记录一件奇怪的现象</h6><p>我先在卡4上跑了两个epoch，并且把ckpt保存了下来。接着在卡7上继续跑，然后nvidia-smi查看GPU使用情况时发现卡4和卡7上都创建了进程，且是同一个进程号。如果kill -9 PID 则进程被杀死，则我的终端显示python程序结束，并显示：process finished with exit code 137 </p>
+<p>请问这是为啥涅？</p>
+<p>好家伙，感觉多GPU保存和加载模型时也会有坑需要注意，虽然我还没遇到过，先挖个坑……</p>
+<h6 id="小结-深度学习代码编写框架"><a href="#小结-深度学习代码编写框架" class="headerlink" title="小结 深度学习代码编写框架"></a>小结 深度学习代码编写框架</h6><figure class="highlight html"><table><tr><td class="code"><pre><span class="line">-项目名</span><br><span class="line">	-ckpt文件夹（存放各种中间数据）</span><br><span class="line">		-数据集1_模型1</span><br><span class="line">			保存JOSN文件——&gt;存放你的一些配置信息,比如优化器、学习率、批处理大小、...</span><br><span class="line">			保存log.txt——&gt;存放你想在中间过程记录的一些信息，比如每轮结束输出一次xx指标</span><br><span class="line">			保存best_model.pth——&gt;以某种指标存放训练过程中的最佳模型数据</span><br><span class="line">			保存lateset_model.pth——&gt;存放最后一个epoch结束后得到的模型数据</span><br><span class="line">		-数据集2_模型1</span><br><span class="line">		-数据集1_模型2</span><br><span class="line">		-数据集2_模型2</span><br><span class="line">		-...</span><br><span class="line">    -datasets文件夹（存放各种数据集类）</span><br><span class="line">    	-Dataset1.py (里面对Dataset1构建类和方法，用于dataloader调用)</span><br><span class="line">    	-Dataset2.py </span><br><span class="line">    	-...</span><br><span class="line">    -models文件夹 （构造你的模型）	(models这部分的编写不是很固定，按照需求编写即可)</span><br><span class="line">    	-Total_model.py (最后的完整模型，输入是样本数据，输出是整体pipeline的输出)</span><br><span class="line">    	-backbone.py (模型一般有backbone)</span><br><span class="line">    	-modules.py (一些你自己特殊构造的模块/机制)</span><br><span class="line">    	-...</span><br><span class="line">    -utils文件夹</span><br><span class="line">    	-helpers.py (写一些其他的辅助功能函数)</span><br><span class="line">    	-...</span><br><span class="line">    -config.py (配置文件,包括配置数据路径、模型类型、学习率、权重衰减率等超参数)</span><br><span class="line">    -main.py (主函数,实现模型的训练和评估等)</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <tags>
+        <tag>python编程</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>[论文阅读]Mind the Gap:Understanding the Modality Gap in</title>
+    <url>/2023/09/22/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-Mind-the-Gap-Understanding-the-Modality-Gap-in/</url>
+    <content><![CDATA[]]></content>
+  </entry>
+  <entry>
+    <title>论文阅读《What Makes Training Multi-modal Classification Networks Hard?》</title>
+    <url>/2023/03/23/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-OGR-GB/</url>
+    <content><![CDATA[<h5 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h5><p>考虑在具有多个输入模态的任务上对多模态网络与单模态网络进行端到端训练：多模态网络接收到更多信息，因此它应该匹配或优于其相应的单模态网络。<font color='pink'>然而，在我们的实验中观察到相反的现象：最好的单模态网络通常优于多模态网络。这一观察结果在模态的不同组合以及视频分类的不同任务和基准之间是一致的。</font>本文认为导致这种结果的原因有两点：①多模态网络的参数量增大，导致模型容易过拟合。②不同模态以不同的速率过拟合和泛化，因此以单一的联合训练策略来训练网络是次优的方案。进而本文针对这两个原因提出了解决方案：Gradient Blending梯度混合。<br>【批注】标红的部分是本文的motivation，即问题的出发点。这里有些瑕疵，是因为这里的融合机制设定<strong>都是后融合，并且是比较简单的后融合方法。</strong>这些融合方法本身可能存在比较大的缺陷。所以这个问题是否成立 还可以在其他融合方法（如前融合、混合融合以及基于模型的融合方法）进行验证。</p>
+<h5 id="引入"><a href="#引入" class="headerlink" title="引入"></a>引入</h5><img src="C:\Users\xuan\AppData\Roaming\Typora\typora-user-images\image-20230323182214807.png" alt="image-20230323182214807" style="zoom: 50%;" />
+图1：不同防止过拟合的方法&不同融合方法
+
+<p>上图：RGB是最佳的单模态网络<br>late-concat是Audio+RGB双模态基于(后)串联融合的方法（即多模态网络使用与单模态相同的架构，在预测之前的最后一层连接后期融合）<br>这种下降的现象在不同的模态组合和不同的betchmark数据集上都存在，如下图（这里只展示了一个数据集Kinetics上的结果）：<br>                                      <img src="C:\Users\xuan\AppData\Roaming\Typora\typora-user-images\image-20230323182820165.png" alt="image-20230323182820165" style="zoom:50%;" /><br>而针对这种现象，容易想到的原因有两个：①是由于后融合操作使得模型容量增大，从而导致过拟合造成的；②是由于late-concat这种融合方法欠佳导致的。针对这两个原因，作者先进行了实验，结果如图1所示。只有dropout和mid-concat相比于单模态RGB有一点提升。</p>
+<h6 id="不同的融合机制"><a href="#不同的融合机制" class="headerlink" title="不同的融合机制"></a>不同的融合机制</h6><p>这里作者希望说明，出现模型性能下降的原因不是由于late-concat导致的，或者说模型性能下降的现象在多种融合方法上都存在。文中在4种融合机制上进行了实验。</p>
+<table>
+<thead>
+<tr>
+<th>融合方法</th>
+<th>模型图</th>
+<th>模型机制</th>
+<th>实验准确度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>late-concat</td>
+<td><img src="C:\Users\xuan\AppData\Roaming\Typora\typora-user-images\image-20230323185223847.png" alt="image-20230323185223847" style="zoom: 33%;" /></td>
+<td>先分别通过单模态网络抽取特征，完成后将特征直接串联，经过一个全连接层映射到同一空间，得到融合特征。</td>
+<td>71.4</td>
+</tr>
+<tr>
+<td>mid-concat</td>
+<td><img src="C:\Users\xuan\AppData\Roaming\Typora\typora-user-images\image-20230323190149854.png" alt="image-20230323190149854" style="zoom:33%;" /></td>
+<td>中间串联&#x2F;中间融合&#x2F;前融合。先经过浅层网络提取浅层特征，再将浅层特征串联，再输入到若干层网络</td>
+<td>72.8</td>
+</tr>
+<tr>
+<td>SE-gate</td>
+<td></td>
+<td>一种Gate机制</td>
+<td>71.4</td>
+</tr>
+<tr>
+<td>NL-gate</td>
+<td></td>
+<td>一种Gate机制</td>
+<td>72</td>
+</tr>
+</tbody></table>
+<h6 id="不同的解决过拟合的常用方法"><a href="#不同的解决过拟合的常用方法" class="headerlink" title="不同的解决过拟合的常用方法"></a>不同的解决过拟合的常用方法</h6><p>如果使用这些解决过拟合的策略并不能带来模型性能的提升，那么证明多模态模型性能下降的原因不是因为过拟合？这里作者观察到 dropout 和 mid-concat（与 late-concat 相比，参数减少了 37%）比 lateconcat 提高了 1.5% 和 1.4%，这证实了后期concat 的过度拟合问题。<font color='pink'>（那么另外两种方法：pretrain和early-stop为什么不起作用呢。这两种没有改变网络参数量？）</font></p>
+<h6 id="dropout"><a href="#dropout" class="headerlink" title="dropout"></a>dropout</h6><p>一个感受：比如为什么在2022年阅读一篇2020年的文章时，会被其中引用的2018年的文章所吸引，2018年的那篇被引用的文章大概率质量比较高。这是因为经过了时间的烤盐啊……</p>
+]]></content>
+      <categories>
+        <category>论文阅读</category>
       </categories>
   </entry>
   <entry>
@@ -329,61 +384,6 @@
       <categories>
         <category>论文阅读</category>
       </categories>
-  </entry>
-  <entry>
-    <title>论文阅读《What Makes Training Multi-modal Classification Networks Hard?》</title>
-    <url>/2023/03/23/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-OGR-GB/</url>
-    <content><![CDATA[<h5 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h5><p>考虑在具有多个输入模态的任务上对多模态网络与单模态网络进行端到端训练：多模态网络接收到更多信息，因此它应该匹配或优于其相应的单模态网络。<font color='pink'>然而，在我们的实验中观察到相反的现象：最好的单模态网络通常优于多模态网络。这一观察结果在模态的不同组合以及视频分类的不同任务和基准之间是一致的。</font>本文认为导致这种结果的原因有两点：①多模态网络的参数量增大，导致模型容易过拟合。②不同模态以不同的速率过拟合和泛化，因此以单一的联合训练策略来训练网络是次优的方案。进而本文针对这两个原因提出了解决方案：Gradient Blending梯度混合。<br>【批注】标红的部分是本文的motivation，即问题的出发点。这里有些瑕疵，是因为这里的融合机制设定<strong>都是后融合，并且是比较简单的后融合方法。</strong>这些融合方法本身可能存在比较大的缺陷。所以这个问题是否成立 还可以在其他融合方法（如前融合、混合融合以及基于模型的融合方法）进行验证。</p>
-<h5 id="引入"><a href="#引入" class="headerlink" title="引入"></a>引入</h5><img src="C:\Users\xuan\AppData\Roaming\Typora\typora-user-images\image-20230323182214807.png" alt="image-20230323182214807" style="zoom: 50%;" />
-图1：不同防止过拟合的方法&不同融合方法
-
-<p>上图：RGB是最佳的单模态网络<br>late-concat是Audio+RGB双模态基于(后)串联融合的方法（即多模态网络使用与单模态相同的架构，在预测之前的最后一层连接后期融合）<br>这种下降的现象在不同的模态组合和不同的betchmark数据集上都存在，如下图（这里只展示了一个数据集Kinetics上的结果）：<br>                                      <img src="C:\Users\xuan\AppData\Roaming\Typora\typora-user-images\image-20230323182820165.png" alt="image-20230323182820165" style="zoom:50%;" /><br>而针对这种现象，容易想到的原因有两个：①是由于后融合操作使得模型容量增大，从而导致过拟合造成的；②是由于late-concat这种融合方法欠佳导致的。针对这两个原因，作者先进行了实验，结果如图1所示。只有dropout和mid-concat相比于单模态RGB有一点提升。</p>
-<h6 id="不同的融合机制"><a href="#不同的融合机制" class="headerlink" title="不同的融合机制"></a>不同的融合机制</h6><p>这里作者希望说明，出现模型性能下降的原因不是由于late-concat导致的，或者说模型性能下降的现象在多种融合方法上都存在。文中在4种融合机制上进行了实验。</p>
-<table>
-<thead>
-<tr>
-<th>融合方法</th>
-<th>模型图</th>
-<th>模型机制</th>
-<th>实验准确度</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>late-concat</td>
-<td><img src="C:\Users\xuan\AppData\Roaming\Typora\typora-user-images\image-20230323185223847.png" alt="image-20230323185223847" style="zoom: 33%;" /></td>
-<td>先分别通过单模态网络抽取特征，完成后将特征直接串联，经过一个全连接层映射到同一空间，得到融合特征。</td>
-<td>71.4</td>
-</tr>
-<tr>
-<td>mid-concat</td>
-<td><img src="C:\Users\xuan\AppData\Roaming\Typora\typora-user-images\image-20230323190149854.png" alt="image-20230323190149854" style="zoom:33%;" /></td>
-<td>中间串联&#x2F;中间融合&#x2F;前融合。先经过浅层网络提取浅层特征，再将浅层特征串联，再输入到若干层网络</td>
-<td>72.8</td>
-</tr>
-<tr>
-<td>SE-gate</td>
-<td></td>
-<td>一种Gate机制</td>
-<td>71.4</td>
-</tr>
-<tr>
-<td>NL-gate</td>
-<td></td>
-<td>一种Gate机制</td>
-<td>72</td>
-</tr>
-</tbody></table>
-<h6 id="不同的解决过拟合的常用方法"><a href="#不同的解决过拟合的常用方法" class="headerlink" title="不同的解决过拟合的常用方法"></a>不同的解决过拟合的常用方法</h6><p>如果使用这些解决过拟合的策略并不能带来模型性能的提升，那么证明多模态模型性能下降的原因不是因为过拟合？这里作者观察到 dropout 和 mid-concat（与 late-concat 相比，参数减少了 37%）比 lateconcat 提高了 1.5% 和 1.4%，这证实了后期concat 的过度拟合问题。<font color='pink'>（那么另外两种方法：pretrain和early-stop为什么不起作用呢。这两种没有改变网络参数量？）</font></p>
-<h6 id="dropout"><a href="#dropout" class="headerlink" title="dropout"></a>dropout</h6><p>一个感受：比如为什么在2022年阅读一篇2020年的文章时，会被其中引用的2018年的文章所吸引，2018年的那篇被引用的文章大概率质量比较高。这是因为经过了时间的烤盐啊……</p>
-]]></content>
-      <categories>
-        <category>论文阅读</category>
-      </categories>
-  </entry>
-  <entry>
-    <title>[论文阅读]Mind the Gap:Understanding the Modality Gap in</title>
-    <url>/2023/09/22/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-Mind-the-Gap-Understanding-the-Modality-Gap-in/</url>
-    <content><![CDATA[]]></content>
   </entry>
   <entry>
     <title>预推免面试准备</title>
