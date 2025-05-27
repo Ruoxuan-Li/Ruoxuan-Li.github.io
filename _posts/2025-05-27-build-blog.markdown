@@ -48,7 +48,7 @@ Jekyll 是一个简单的博客形态的静态站点生产机器，它有一个�
 ```bash
 git add .
 git commit -m "post a new article"
-git push gh-pages
+git push origin gh-pages
 ```
 
 推送成功后，在浏览器中输入 `https://username.github.io` ，即可看到你写的博客。
@@ -58,7 +58,7 @@ git push gh-pages
 ```
 git add .
 git commit -m "post a new article"  // "xxx"内的内容是注释信息
-git push gh-pages
+git push origin gh-pages
 ```
 
 我的博客：https://ruoxuan-li.github.io/
