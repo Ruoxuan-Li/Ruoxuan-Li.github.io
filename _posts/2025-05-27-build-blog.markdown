@@ -9,7 +9,7 @@ categories: jekyll update
 
 在当今数字化时代，拥有一个个人博客是分享知识、展示自我的好方式。而利用 GitHub 来托管博客，不仅免费，还能借助其强大的版本控制功能。常见的博客框架如 Jekyll、Hugo、Hexo 都能与 GitHub 很好地结合。以下将详细介绍在这些框架下快速在 GitHub 博客发表新文章的方法。
 
-**本文由Coze AI生成，本人使用Jekyll框架顺利无痛归回博客写作~ 好用！谢谢AI！**
+**本文内容由Coze AI生成，少部分内容经过本人实际操作后进行了修改和完善哦！本按照里面的Jekyll框架教程顺利无痛归回博客写作~ 好用！谢谢AI！**
 
 ## 一、Jekyll 框架
 
@@ -22,6 +22,8 @@ Jekyll 是一个简单的博客形态的静态站点生产机器，它有一个�
 - **安装 Jekyll**：在 cmd 打开命令行工具，执行 `gem install jekyll` 命令进行安装，安装完成后执行 `jekyll -v` 命令检测是否安装成功。
 
 ### 2. 创建文章
+
+- **创建Jekyll项目**: 首先定位到一个合适的根目录，然后使用`jekyll new xxx`创建一个名为xxx的新项目，该命令会在当前根目录下生成项目文件夹。
 
 - **创建文章文件**：在 Jekyll 项目的 `_posts` 文件夹里写博客，文件名命名规范必须和里面自带的一致，例如：`2016-10-27-XXXXX.markdown` 。也可以使用命令来创建文章，如 `rake post title="about this blog"` 。
 - **编辑文章内容**：使用文本编辑器打开文章文件，设置 `title`、`description`、`category`、`tags` 等信息，再用 Markdown 来写文章内容。
