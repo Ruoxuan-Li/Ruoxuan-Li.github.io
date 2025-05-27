@@ -33,7 +33,15 @@ Jekyll 是一个简单的博客形态的静态站点生产机器，它有一个�
 ### 4. 发布到 GitHub
 
 - **创建 GitHub 仓库**：在 GitHub 上创建一个名为 `username.github.io` 的仓库，其中 `username` 是你的 GitHub 用户名。
+
 - **推送文件**：将本地的 Jekyll 项目文件推送到 GitHub 仓库。在本地项目目录下，执行以下命令：
+
+  首次执行：
+
+  ```bash
+  git init
+  git checkout --orphan gh-pages  // jekyll需要用gh-pages分支
+  ```
 
 ```bash
 git add .
@@ -42,6 +50,10 @@ git push origin master
 ```
 
 推送成功后，在浏览器中输入 `https://username.github.io` ，即可看到你写的博客。
+
+每次修改/写了新文章后，执行：
+
+
 
 ## 二、Hugo 框架
 
