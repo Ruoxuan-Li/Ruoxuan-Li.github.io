@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Build Blog."
+title:  "github博客创建教程"
 date:   2025-05-27 23:04:45 +0800
 categories: jekyll update
 ---
