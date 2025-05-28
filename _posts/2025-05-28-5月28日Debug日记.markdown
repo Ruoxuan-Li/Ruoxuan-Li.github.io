@@ -1,0 +1,319 @@
+---
+layout: post
+title:  "5月28日Debug日记"
+date:   2025-05-28 21:20:25 +0800
+categories: jekyll update
+---
+
+##### [5.28] BUG解决日记
+
+### 报错：
+
+```shell
+ImportError: PyTorch SDPA requirements in Transformers are not met. Please install torch>=2.1.1.
+```
+
+环境torch版本过低，pip list
+
+```
+Package                           Version
+--------------------------------- ---------------
+accelerate                        1.0.1
+aiohappyeyeballs                  2.4.4
+aiohttp                           3.10.11
+aiosignal                         1.3.1
+annotated-types                   0.7.0
+anyio                             4.5.2
+async-timeout                     5.0.1
+attrs                             25.3.0
+bitsandbytes                      0.44.0
+cachetools                        5.5.2
+certifi                           2025.4.26
+charset-normalizer                3.4.2
+click                             8.1.8
+cloudpickle                       3.1.1
+cmake                             4.0.2
+compressed-tensors                0.6.0
+datasets                          3.1.0
+dill                              0.3.8
+diskcache                         5.6.3
+distro                            1.9.0
+einops                            0.8.1
+exceptiongroup                    1.3.0
+fastapi                           0.112.4
+filelock                          3.16.1
+flash-attn                        2.6.3
+frozenlist                        1.5.0
+fsspec                            2024.9.0
+gguf                              0.10.0
+h11                               0.16.0
+httpcore                          1.0.9
+httptools                         0.6.4
+httpx                             0.28.1
+huggingface-hub                   0.31.4
+idna                              3.10
+importlib_metadata                8.5.0
+importlib_resources               6.4.5
+interegular                       0.3.3
+Jinja2                            3.1.6
+jiter                             0.9.1
+joblib                            1.4.2
+jsonschema                        4.23.0
+jsonschema-specifications         2023.12.1
+lark                              1.2.2
+lit                               18.1.8
+llvmlite                          0.41.1
+lm-format-enforcer                0.10.6
+MarkupSafe                        2.1.5
+mistral_common                    1.5.6
+modelscope                        1.26.0
+mpmath                            1.3.0
+msgpack                           1.1.0
+msgspec                           0.18.6
+multidict                         6.1.0
+multiprocess                      0.70.16
+nest-asyncio                      1.6.0
+networkx                          3.1
+ninja                             1.11.1.4
+numba                             0.58.1
+numpy                             1.24.4
+nvidia-cublas-cu12                12.1.3.1
+nvidia-cuda-cupti-cu12            12.1.105
+nvidia-cuda-nvrtc-cu12            12.1.105
+nvidia-cuda-runtime-cu12          12.1.105
+nvidia-cudnn-cu12                 9.1.0.70
+nvidia-cufft-cu12                 11.0.2.54
+nvidia-curand-cu12                10.3.2.106
+nvidia-cusolver-cu12              11.4.5.107
+nvidia-cusparse-cu12              12.1.0.106
+nvidia-ml-py                      12.575.51
+nvidia-nccl-cu12                  2.20.5
+nvidia-nvjitlink-cu12             12.9.41
+nvidia-nvtx-cu12                  12.1.105
+openai                            1.79.0
+opencv-python-headless            4.11.0.86
+outlines                          0.0.46
+packaging                         25.0
+pandas                            2.0.3
+partial-json-parser               0.2.1.1.post5
+peft                              0.7.1
+pillow                            10.4.0
+pip                               24.2
+pkgutil_resolve_name              1.3.10
+prometheus_client                 0.21.1
+prometheus-fastapi-instrumentator 7.1.0
+propcache                         0.2.0
+protobuf                          5.29.4
+psutil                            7.0.0
+py-cpuinfo                        9.0.0
+pyairports                        2.1.1
+pyarrow                           17.0.0
+pycountry                         24.6.1
+pydantic                          1.10.22
+pydantic_core                     2.27.2
+PyJWT                             2.8.0
+python-dateutil                   2.9.0.post0
+python-dotenv                     1.0.1
+pytz                              2025.2
+PyYAML                            6.0.2
+pyzmq                             26.4.0
+ray                               2.10.0
+referencing                       0.35.1
+regex                             2024.11.6
+requests                          2.32.3
+rpds-py                           0.20.1
+safetensors                       0.5.3
+scikit-learn                      1.3.2
+scipy                             1.10.1
+sentencepiece                     0.2.0
+setuptools                        75.1.0
+six                               1.17.0
+sniffio                           1.3.1
+starlette                         0.38.6
+sympy                             1.13.3
+threadpoolctl                     3.5.0
+tiktoken                          0.7.0
+tokenizers                        0.20.3
+torch                             2.0.1+cu118
+torchaudio                        2.0.2+rocm5.4.2
+torchvision                       0.15.2+cu118
+tqdm                              4.67.1
+transformers                      4.46.3
+triton                            2.0.0
+typing_extensions                 4.13.2
+tzdata                            2025.2
+urllib3                           2.2.3
+uvicorn                           0.33.0
+uvloop                            0.21.0
+vllm                              0.2.0
+watchfiles                        0.24.0
+websockets                        13.1
+wheel                             0.44.0
+xformers                          0.0.27.post2
+xxhash                            3.5.0
+yarl                              1.15.2
+zhipuai                           2.1.5.20250421
+zipp                              3.20.2
+
+```
+
+## 解决：
+
+```
+pip uninstall torch trochvision torchaudio  
+```
+
+csdn查看torch torchvision torchaudio 对应关系：
+
+[PyTorch中torch、torchvision、torchaudio、torchtext版本对应关系_torch2.0.1对应的torchvision-CSDN博客](https://blog.csdn.net/shiwanghualuo/article/details/122860521)
+
+
+
+通过https://download.pytorch.org/whl/torch_stable.html网站下载：
+
+```
+pip install torch==2.1.1+cu118 torchvision==0.16.1+cu118 torchaudio==2.1.1 -f https://download.pytorch.org/whl/torch_stable.html
+```
+
+
+
+### 报错：
+
+flash-attention版本错误
+
+## 解决：
+
+重新安装flash-attn
+
+```
+pip uninstall flash-attn
+```
+
+根据我的torch和cuda版本：torch=2.1.1 cuda=11.8，到flash attention官网（[Releases · Dao-AILab/flash-attention · GitHub](https://github.com/Dao-AILab/flash-attention/releases?page=2)）下载对应的安装包。
+
+```
+wget https://github.com/Dao-AILab/flash-attention/releases/download/v2.6.1/flash_attn-2.6.1+cu118torch2.1cxx11abiFALSE-cp38-cp38-linux_x86_64.whl
+```
+
+~~特别慢......又是崩溃的两个小时呀鼠鼠~~   本地先下载，特别快，然后xshell传到远程，解决了！
+
+然后pip install 
+
+```
+pip install flash_attn-2.6.1+cu118torch2.1cxx11abiFALSE-cp38-cp38-linux_x86_64.whl
+```
+
+##### 成功！可以美美测试下用1000条文本无监督预训练chinese-llama3后的推理效果了！
+
+
+
+### flash attention是什么？
+
+FlashAttention的目标是加速注意力的计算并减少内存占用，它利用了底层硬件的内存层次知识，例如**GPU的内存层次结构**，来提高计算速度和减少内存访问开销。FlashAttention的核心原理是将输入**分块**并在每个块上执行注意力操作。
+
+#### 前置知识（硬件方面）
+
+1. ##### HBM是什么？（转载自：[HBM高带宽存储与SRAM、DRAM的特点 - 知乎](https://zhuanlan.zhihu.com/p/657860237)）
+
+RAM主要分为两类：[SRAM](https://zhida.zhihu.com/search?content_id=234319763&content_type=Article&match_order=1&q=SRAM&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3NDg2MTI5OTYsInEiOiJTUkFNIiwiemhpZGFfc291cmNlIjoiZW50aXR5IiwiY29udGVudF9pZCI6MjM0MzE5NzYzLCJjb250ZW50X3R5cGUiOiJBcnRpY2xlIiwibWF0Y2hfb3JkZXIiOjEsInpkX3Rva2VuIjpudWxsfQ.gEow0H4iCfn22pCqagB4bpuSswFBVW5d73PfV_7RlkM&zhida_source=entity)（Static RAM）、[DRAM](https://zhida.zhihu.com/search?content_id=234319763&content_type=Article&match_order=1&q=DRAM&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3NDg2MTI5OTYsInEiOiJEUkFNIiwiemhpZGFfc291cmNlIjoiZW50aXR5IiwiY29udGVudF9pZCI6MjM0MzE5NzYzLCJjb250ZW50X3R5cGUiOiJBcnRpY2xlIiwibWF0Y2hfb3JkZXIiOjEsInpkX3Rva2VuIjpudWxsfQ.uIB92c2Wt8502Ha3ndnE0JcOnLu7RvqP4ZMxFuc6fT0&zhida_source=entity)（Dynamic RAM）。
+
+其中，SRAM的S是Static的缩写，全称是静态随机存取存储器；而DRAM的D是Dynamic的缩写，全称是动态随机存取存储器。
+
+SRAM的存储密度相对较低，每个存储单元通常需要6个晶体管；由于DRAM采用了电容存储结构，每个存储单元只需要一个电容和一个访问晶体管，因此DRAM的存储密度较高。
+
+DRAM（Dynamic RAM）是指动态随机存取存储器。与SRAM最大的不同是，DRAM需要通过刷新操作来保持其存储的内容。
+
+[SDRAM](https://zhida.zhihu.com/search?content_id=234319763&content_type=Article&match_order=1&q=SDRAM&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3NDg2MTI5OTYsInEiOiJTRFJBTSIsInpoaWRhX3NvdXJjZSI6ImVudGl0eSIsImNvbnRlbnRfaWQiOjIzNDMxOTc2MywiY29udGVudF90eXBlIjoiQXJ0aWNsZSIsIm1hdGNoX29yZGVyIjoxLCJ6ZF90b2tlbiI6bnVsbH0.sSaF0cUVnJiM9ZovYrrQ7YY-EmSxGKujX2GIA5ewN0A&zhida_source=entity)（Synchronous Dynamic Random Access Memory）是一种计算机内存类型，它的工作方式与传统的DRAM（Dynamic Random Access Memory）不同。在SDRAM的时钟频率与CPU前端总线的系统时钟频率相同，并且内部的命令发送和数据传输都以系统时钟频率为基准。
+
+自动刷新（AUTO REFRESH）是由于DRAM存储单元中的电荷会逐渐泄漏，因此需要定期刷新以保持存储的数据不丢失。SDRAM需要8192次自动刷新周期，每64毫秒（适用于商业级和工业级SDRAM），或每16毫秒（适用于汽车规格的SDRAM）。这是为了确保存储在SDRAM中的数据得到适时的刷新，以防止数据丢失或损坏。
+
+SDRAM因其高速、同步操作和自动刷新等特性，适用于许多计算机和嵌入式系统中，以**提供高性能的内存访问和数据存储**。不同类型的SDRAM可能有不同的规格和要求，以满足各种应用的需求。
+
+**AI运算最关键之处是存储而非AI处理器本身，AI运算90%的功耗和延迟都来自存储或者说都来自数据的搬运。90%的工况下，AI处理器都在等待存储系统搬运数据，而运算系统所需要的时间几乎是可以忽略的，所以存储系统的好坏实际决定了真实的算力大小。**（这一点以前不知道~）
+
+High Bandwidth Memory（[HBM](https://zhida.zhihu.com/search?content_id=234319763&content_type=Article&match_order=1&q=HBM&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3NDg2MTI5OTYsInEiOiJIQk0iLCJ6aGlkYV9zb3VyY2UiOiJlbnRpdHkiLCJjb250ZW50X2lkIjoyMzQzMTk3NjMsImNvbnRlbnRfdHlwZSI6IkFydGljbGUiLCJtYXRjaF9vcmRlciI6MSwiemRfdG9rZW4iOm51bGx9.Wgd7MxUGRxY9LR2cz8e_cV4LLbUdN6FffxCSxJSKHNE&zhida_source=entity)）是一种高性能的内存技术，常用于高端CPU和GPU中。它的设计目标是提供更高的内存带宽和更低的功耗，以满足高度并行的计算工作负载需求。HBM与传统[DDR](https://zhida.zhihu.com/search?content_id=234319763&content_type=Article&match_order=1&q=DDR&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3NDg2MTI5OTYsInEiOiJERFIiLCJ6aGlkYV9zb3VyY2UiOiJlbnRpdHkiLCJjb250ZW50X2lkIjoyMzQzMTk3NjMsImNvbnRlbnRfdHlwZSI6IkFydGljbGUiLCJtYXRjaF9vcmRlciI6MSwiemRfdG9rZW4iOm51bGx9.X1UeQHIhfcLsX7koavtzCl2kZ3WJIlpgL4wcxeJstp0&zhida_source=entity)（Double Data Rate）内存相比具有以下特点：
+
+**1）堆叠设计：** HBM的内存芯片是堆叠在一起的，而不是像DDR那样排列在一个平面上。这种堆叠设计允许更多的内存芯片连接到CPU或GPU，从而实现更高的容量和带宽。
+
+**2）高带宽：** HBM提供了比传统DDR更高的内存带宽，这对于高性能计算、深度学习和图形渲染等应用非常重要。它可以满足处理大规模数据集和复杂计算任务的要求。
+
+**3）低功耗：** HBM的堆叠设计还有助于降低功耗，因为数据传输的距离更短，通信更高效。这对于笔记本电脑和移动设备等需要节能的场景尤其重要。
+
+**4）紧凑封装**：HBM内存芯片与CPU或GPU封装在同一个模块中，这种紧凑的封装有助于减小芯片的物理尺寸，使得高性能计算设备更加紧凑和便携。
+
+2022年HBM市场份额中，**SK海力士**一家独大，独占50%，三星约40%，美光仅10%，且SK海力士是目前唯一量产HBM3的公司。
+
+2. ##### SRAM VS HBM
+
+**GPU 中的 SRAM（一般指片上缓存如 L1/L2 Cache）和 HBM（High Bandwidth Memory）**。它们是**不同层级的存储器**，在速度、带宽、容量和用途方面各有特点。
+
+------
+
+##### 一、定义和位置区别：
+
+| 属性     | **SRAM（在 GPU 中）**                        | **HBM（High Bandwidth Memory）**                            |
+| -------- | -------------------------------------------- | ----------------------------------------------------------- |
+| 类型     | 片上高速缓存（L1、L2 Cache，基于 SRAM 技术） | 高带宽、堆叠式显存                                          |
+| 存储介质 | SRAM                                         | DRAM（3D堆叠封装的 DRAM）                                   |
+| 位于哪里 | 集成在 GPU 芯片内部（die 内）                | 通常通过 TSV（硅通孔）与 GPU 芯片封装在一起（或近距离连接） |
+| 作用     | 存储最近使用的数据或指令，加速访问           | 存储大规模数据（如模型参数、特征图等），供 GPU 核心频繁访问 |
+
+------
+
+##### 二、速度、带宽和容量对比：
+
+| 指标     | **SRAM（GPU Cache）**               | **HBM（如 HBM2、HBM3）**             |
+| -------- | ----------------------------------- | ------------------------------------ |
+| 访问延迟 | 极低（< 1ns）                       | 中等（~100ns 左右）                  |
+| 带宽     | 高（但受限于 Cache 容量和访问通道） | 极高（HBM2 可达 1 TB/s，HBM3 更高）  |
+| 容量     | 极小（KB ~ 几 MB）                  | 大（几 GB ~ 数十 GB）                |
+| 典型用途 | GPU 中 L1/L2 缓存、控制逻辑         | 存储中间特征图、权重矩阵、大批输入等 |
+
+------
+
+##### 三、类比说明：
+
+你可以这样理解两者关系（以人类记忆类比）：
+
+- **SRAM（GPU Cache）** ≈ 短期记忆（工作记忆）→ 快速、容量小
+- **HBM（GPU 显存）** ≈ 长期记忆 → 容量大、访问速度稍慢
+
+------
+
+##### 四、哪个更快？
+
+###### 速度：
+
+- **SRAM（GPU Cache）远远快于 HBM**，因为它是静态存储、位于芯片内、延迟极低。
+
+###### 带宽（吞吐量）：
+
+- **HBM 的带宽更高**，适合大规模并行访问，但单次访问延迟比 SRAM 高得多。
+
+------
+
+##### 五、总结对比表：
+
+| 特性 | SRAM（GPU L1/L2 Cache）      | HBM（显存）              |
+| ---- | ---------------------------- | ------------------------ |
+| 类型 | 静态随机存储器（片上）       | 高带宽堆叠式 DRAM        |
+| 容量 | 小（KB～MB）                 | 大（GB）                 |
+| 延迟 | 极低                         | 高                       |
+| 带宽 | 中等～高                     | 极高（可达 TB/s）        |
+| 能耗 | 较高                         | 更节能（相对 GDDR）      |
+| 用途 | 缓存、控制、中间数据快速访问 | 特征图、权重、训练数据等 |
+
+
+
+#### 简单理解FlashAttention
+
+Flash Attention通过**分块 + 高效内存读写 + 重计算**，通过数学等价变换避免显存浪费，把 attention 算得更快、更省。
+
+论文：FlashAttention: Fast and Memory-Efficient Exact Attention with IO-Awareness [arxiv.org/pdf/2205.14135](https://arxiv.org/pdf/2205.14135)
+
+![image-20250528222252249](C:\Users\16081\AppData\Roaming\Typora\typora-user-images\image-20250528222252249.png)
+
+![image-20250528222759771](C:\Users\16081\AppData\Roaming\Typora\typora-user-images\image-20250528222759771.png)
+
+![image-20250528222812691](C:\Users\16081\AppData\Roaming\Typora\typora-user-images\image-20250528222812691.png)
+
